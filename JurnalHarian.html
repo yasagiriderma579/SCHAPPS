@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jurnal Harian</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:'Poppins',Segoe UI,Tahoma,Verdana,sans-serif;
+    background:linear-gradient(135deg,#ffd6e8,#c7a2ff,#a8d8ff);
+    min-height:100vh;
+    padding:30px 20px;
+    overflow-x:hidden;
+    position:relative
+}
+
+body::before{
+    content:'✨';
+    position:fixed;
+    top:10%;
+    left:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 6s ease-in-out infinite
+}
+
+body::after{
+    content:'🌸';
+    position:fixed;
+    bottom:10%;
+    right:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 8s ease-in-out infinite
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0px)}
+    50%{transform:translateY(-20px)}
+}
+
+.container{max-width:1000px;margin:auto}
+
+h1{
+    text-align:center;
+    color:#fff;
+    margin-bottom:40px;
+    font-size:2.8rem;
+    text-shadow:2px 2px 8px rgba(0,0,0,.2);
+    font-weight:800;
+    letter-spacing:2px
+}
+
+/* LAYOUT UTAMA */
+.main{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+    align-items:flex-start
+}
+
+/* CARD UMUM */
+.card{
+    background:#fff;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+    width:100%;
+    backdrop-filter:blur(10px);
+    border:2px solid rgba(255,255,255,.8)
+}
+
+/* FORM */
+label{
+    font-weight:700;
+    margin-bottom:10px;
+    display:block;
+    color:#5a4d8e;
+    font-size:1rem;
+    letter-spacing:.5px
+}
+
+textarea{
+    width:100%;
+    padding:15px;
+    border-radius:15px;
+    border:2px solid #ffc0d9;
+    margin-bottom:15px;
+    min-height:150px;
+    resize:vertical;
+    font-family:inherit;
+    font-size:.95rem;
+    max-width:100%;
+    box-sizing:border-box;
+    transition:all .3s ease;
+    color:#333
+}
+
+textarea::placeholder{
+    color:#bbb
+}
+
+textarea:focus{
+    outline:none;
+    border-color:#a8d8ff;
+    box-shadow:0 0 15px rgba(168,216,255,.4)
+}
+
+input[type=date]{
+    width:100%;
+    padding:12px 15px;
+    border-radius:15px;
+    border:2px solid #ffc0d9;
+    margin-bottom:20px;
+    font-family:inherit;
+    font-size:.95rem;
+    transition:all .3s ease;
+    cursor:pointer
+}
+
+input[type=date]:focus{
+    outline:none;
+    border-color:#a8d8ff;
+    box-shadow:0 0 15px rgba(168,216,255,.4)
+}
+
+button{
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    font-weight:700;
+    transition:all .3s ease;
+    font-size:.95rem;
+    letter-spacing:.5px
+}
+
+.btn-write{
+    width:100%;
+    padding:15px;
+    background:linear-gradient(135deg,#ff9ec7,#f88db1);
+    color:#fff;
+    text-shadow:1px 1px 2px rgba(0,0,0,.1);
+    box-shadow:0 8px 20px rgba(255,158,199,.4)
+}
+
+.btn-write:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(255,158,199,.6)
+}
+
+.btn-write:active{
+    transform:translateY(-1px)
+}
+
+/* OUTPUT */
+.output{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    width:100%;
+    max-height:75vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-right:8px
+}
+
+.output::-webkit-scrollbar{
+    width:8px
+}
+
+.output::-webkit-scrollbar-track{
+    background:#f0e6ff
+}
+
+.output::-webkit-scrollbar-thumb{
+    background:linear-gradient(135deg,#ff9ec7,#a8d8ff);
+    border-radius:10px
+}
+
+.output::-webkit-scrollbar-thumb:hover{
+    background:linear-gradient(135deg,#ff85b8,#9bc4ff)
+}
+
+.jurnal-card{
+    background:linear-gradient(135deg,#fff5f8,#f0f5ff);
+    border-radius:18px;
+    padding:18px;
+    cursor:pointer;
+    transition:all .3s ease;
+    border:2px solid rgba(255,158,199,.3);
+    animation:cardAppear .4s ease
+}
+
+@keyframes cardAppear{
+    from{
+        opacity:0;
+        transform:translateY(20px)
+    }
+    to{
+        opacity:1;
+        transform:translateY(0)
+    }
+}
+
+.jurnal-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(255,158,199,.25);
+    border-color:rgba(255,158,199,.5)
+}
+
+.jurnal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:12px
+}
+
+.jurnal-tanggal{
+    font-size:.85rem;
+    color:#ff9ec7;
+    font-weight:700;
+    background:#ffe6f0;
+    padding:6px 12px;
+    border-radius:12px;
+    letter-spacing:.3px
+}
+
+.btn-delete-jurnal{
+    background:linear-gradient(135deg,#ff6b9d,#ff4757);
+    color:#fff;
+    padding:6px 12px;
+    border-radius:10px;
+    font-size:.75rem;
+    transition:all .2s ease;
+    box-shadow:0 4px 10px rgba(255,71,87,.3)
+}
+
+.btn-delete-jurnal:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 15px rgba(255,71,87,.5)
+}
+
+.jurnal-preview{
+    color:#666;
+    font-size:.9rem;
+    line-height:1.5;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    margin-bottom:10px;
+    min-height:60px
+}
+
+.jurnal-read-more{
+    font-size:.85rem;
+    color:#a8d8ff;
+    font-weight:600;
+    cursor:pointer
+}
+
+.empty-state{
+    text-align:center;
+    padding:50px 20px;
+    color:#999
+}
+
+.empty-state-icon{
+    font-size:3rem;
+    margin-bottom:15px;
+    opacity:.5
+}
+
+.empty-state p{
+    font-size:1rem;
+    font-weight:500
+}
+
+/* MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+    padding:20px;
+    backdrop-filter:blur(5px)
+}
+
+.modal-box{
+    background:#fff;
+    padding:35px;
+    border-radius:25px;
+    width:90%;
+    max-width:550px;
+    box-shadow:0 25px 60px rgba(0,0,0,.3);
+    max-height:80vh;
+    overflow-y:auto;
+    animation:modalAppear .3s ease
+}
+
+@keyframes modalAppear{
+    from{
+        opacity:0;
+        transform:scale(.95)
+    }
+    to{
+        opacity:1;
+        transform:scale(1)
+    }
+}
+
+.modal-box::-webkit-scrollbar{
+    width:6px
+}
+
+.modal-box::-webkit-scrollbar-thumb{
+    background:linear-gradient(135deg,#ff9ec7,#a8d8ff);
+    border-radius:10px
+}
+
+.modal-header{
+    margin-bottom:20px;
+    padding-bottom:15px;
+    border-bottom:2px solid #f0e6ff
+}
+
+.modal-header h2{
+    color:#5a4d8e;
+    font-size:1.8rem;
+    margin-bottom:8px
+}
+
+.modal-header .jurnal-tanggal{
+    display:inline-block
+}
+
+.modal-body{
+    margin-bottom:20px;
+    color:#555;
+    line-height:1.8;
+    font-size:1rem;
+    white-space:pre-wrap;
+    word-wrap:break-word
+}
+
+.modal-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end
+}
+
+.btn-close-modal{
+    background:linear-gradient(135deg,#a8d8ff,#b5ccff);
+    color:#fff;
+    padding:12px 24px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .3s ease;
+    box-shadow:0 6px 15px rgba(168,216,255,.3)
+}
+
+.btn-close-modal:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(168,216,255,.5)
+}
+
+.btn-delete-modal{
+    background:linear-gradient(135deg,#ff6b9d,#ff4757);
+    color:#fff;
+    padding:12px 24px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .3s ease;
+    box-shadow:0 6px 15px rgba(255,71,87,.3)
+}
+
+.btn-delete-modal:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(255,71,87,.5)
+}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+    .main{
+        grid-template-columns:1fr
+    }
+    
+    h1{
+        font-size:2rem
+    }
+    
+    .card{
+        padding:20px
+    }
+    
+    .modal-box{
+        padding:25px
+    }
+    
+    body::before,body::after{
+        font-size:2rem
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>📔 Jurnal Harian</h1>
+    
+    <div class="main">
+        <!-- INPUT CARD -->
+        <div class="card">
+            <label>Tuliskan Jurnal Hari Ini</label>
+            <textarea id="jurnalText" placeholder="Bagaimana hari Anda? Tulis cerita, perasaan, atau pengalaman Anda di sini..."></textarea>
+            
+            <label>Tanggal</label>
+            <input type="date" id="jurnalDate">
+            
+            <button class="btn-write" onclick="tuliJurnal()">✍️ Tulis Jurnal</button>
+        </div>
+        
+        <!-- OUTPUT CARD -->
+        <div class="card">
+            <div class="output" id="output"></div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DETAIL -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2 id="modalTitle"></h2>
+            <span class="jurnal-tanggal" id="modalDate"></span>
+        </div>
+        
+        <div class="modal-body" id="modalBody"></div>
+        
+        <div class="modal-buttons">
+            <button class="btn-delete-modal" onclick="hapusJurnal()">🗑️ Hapus</button>
+            <button class="btn-close-modal" onclick="tutupModal()">Tutup</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const KEY="jurnal_harian"
+let jurnal=[]
+let activeId=null
+
+function esc(t){
+    const d=document.createElement("div")
+    d.textContent=t
+    return d.innerHTML
+}
+
+function save(){
+    localStorage.setItem(KEY,JSON.stringify(jurnal))
+}
+
+function load(){
+    const data=localStorage.getItem(KEY)
+    jurnal=data?JSON.parse(data):[]
+}
+
+function tuliJurnal(){
+    const text=document.getElementById('jurnalText').value.trim()
+    const date=document.getElementById('jurnalDate').value
+    
+    if(!text||!date){
+        alert('⚠️ Lengkapi deskripsi dan tanggal!')
+        return
+    }
+    
+    jurnal.push({
+        id:Date.now(),
+        text:text,
+        date:date,
+        createdAt:new Date().toLocaleString('id-ID')
+    })
+    
+    save()
+    render()
+    clearForm()
+    alert('✅ Jurnal berhasil disimpan!')
+}
+
+function clearForm(){
+    document.getElementById('jurnalText').value=''
+    document.getElementById('jurnalDate').value=''
+}
+
+function sortJurnalByDate(data){
+    return data.sort((a,b)=>{
+        return new Date(b.date)-new Date(a.date)
+    })
+}
+
+function formatDate(dateStr){
+    const date=new Date(dateStr+'T00:00:00')
+    return date.toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'})
+}
+
+function render(){
+    const output=document.getElementById('output')
+    const sorted=sortJurnalByDate([...jurnal])
+    
+    if(sorted.length===0){
+        output.innerHTML=`
+            <div class="empty-state">
+                <div class="empty-state-icon">📓</div>
+                <p>Belum ada jurnal. Mulai tuliskan jurnal harian Anda sekarang! ✨</p>
+            </div>
+        `
+        return
+    }
+    
+    output.innerHTML=sorted.map(j=>`
+        <div class="jurnal-card" onclick="bukaBaca(${j.id})">
+            <div class="jurnal-header">
+                <span class="jurnal-tanggal">${formatDate(j.date)}</span>
+                <button class="btn-delete-jurnal" onclick="event.stopPropagation();hapusJurnalCepat(${j.id})">Hapus</button>
+            </div>
+            <div class="jurnal-preview">${esc(j.text)}</div>
+            <div class="jurnal-read-more">Baca selengkapnya →</div>
+        </div>
+    `).join('')
+}
+
+function bukaBaca(id){
+    const j=jurnal.find(x=>x.id===id)
+    if(!j) return
+    
+    activeId=id
+    document.getElementById('modalTitle').textContent='Jurnal Hari Ini'
+    document.getElementById('modalDate').textContent=formatDate(j.date)
+    document.getElementById('modalBody').textContent=j.text
+    document.getElementById('modal').style.display='flex'
+}
+
+function tutupModal(){
+    document.getElementById('modal').style.display='none'
+    activeId=null
+}
+
+function hapusJurnal(){
+    if(confirm('Yakin ingin menghapus jurnal ini?')){
+        jurnal=jurnal.filter(j=>j.id!==activeId)
+        save()
+        tutupModal()
+        render()
+    }
+}
+
+function hapusJurnalCepat(id){
+    if(confirm('Yakin ingin menghapus jurnal ini?')){
+        jurnal=jurnal.filter(j=>j.id!==id)
+        save()
+        render()
+    }
+}
+
+// Set tanggal hari ini sebagai default
+document.getElementById('jurnalDate').valueAsDate=new Date()
+
+// Close modal saat klik di luar
+document.getElementById('modal').addEventListener('click',(e)=>{
+    if(e.target.id==='modal') tutupModal()
+})
+
+load()
+render()
+document.getElementById('jurnalText').focus()
+</script>
+</body>
+</html>

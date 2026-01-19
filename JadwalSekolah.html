@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jadwal Sekolah</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Segoe UI,Tahoma,Verdana,sans-serif;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    min-height:100vh;
+    padding:30px 20px;
+    overflow-x:hidden
+}
+
+.container{max-width:1200px;margin:auto}
+
+h1{
+    text-align:center;
+    color:#fff;
+    margin-bottom:40px;
+    font-size:2.5rem;
+    text-shadow:2px 2px 4px rgba(0,0,0,.3)
+}
+
+.jadwal-container{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    margin-bottom:30px
+}
+
+.hari-card{
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    overflow:hidden
+}
+
+.hari-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    padding-bottom:15px;
+    border-bottom:3px solid #667eea
+}
+
+.hari-nama{
+    font-size:1.5rem;
+    font-weight:700;
+    color:#333
+}
+
+.btn-add-jadwal{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#4CAF50,#45a049);
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .3s ease;
+    box-shadow:0 3px 10px rgba(76,175,80,.3)
+}
+
+.btn-add-jadwal:hover{
+    transform:scale(1.15);
+    box-shadow:0 5px 15px rgba(76,175,80,.5)
+}
+
+.btn-add-jadwal:active{
+    transform:scale(1)
+}
+
+.jadwal-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-height:400px;
+    overflow-y:auto;
+    padding-right:5px
+}
+
+.jadwal-list::-webkit-scrollbar{
+    width:6px
+}
+
+.jadwal-list::-webkit-scrollbar-track{
+    background:#f1f1f1;
+    border-radius:10px
+}
+
+.jadwal-list::-webkit-scrollbar-thumb{
+    background:#667eea;
+    border-radius:10px
+}
+
+.jadwal-list::-webkit-scrollbar-thumb:hover{
+    background:#764ba2
+}
+
+.jadwal-row{
+    display:grid;
+    grid-template-columns:2fr 1fr auto;
+    gap:8px;
+    align-items:center;
+    padding:10px;
+    background:#f9f9f9;
+    border-radius:8px;
+    border-left:4px solid #667eea;
+    transition:all .2s ease
+}
+
+.jadwal-row:hover{
+    background:#f0f4ff;
+    box-shadow:0 2px 8px rgba(102,126,234,.2)
+}
+
+.jadwal-mapel{
+    font-weight:600;
+    color:#333;
+    font-size:.95rem;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+}
+
+.jadwal-waktu{
+    font-size:.85rem;
+    color:#667eea;
+    font-weight:600;
+    text-align:center
+}
+
+.btn-delete-jadwal{
+    width:28px;
+    height:28px;
+    border-radius:6px;
+    background:linear-gradient(135deg,#f44336,#da190b);
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .2s ease;
+    flex-shrink:0;
+    box-shadow:0 2px 8px rgba(244,67,54,.3);
+    font-weight:bold;
+    padding:0
+}
+
+.btn-delete-jadwal:hover{
+    background:linear-gradient(135deg,#da190b,#b8150a);
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(244,67,54,.5)
+}
+
+.btn-delete-jadwal:active{
+    transform:translateY(0);
+    box-shadow:0 2px 6px rgba(244,67,54,.3)
+}
+
+.empty-state{
+    text-align:center;
+    color:#999;
+    padding:20px;
+    font-size:.9rem
+}
+
+/* MODAL TAMBAH JADWAL */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+    padding:20px
+}
+
+.modal-box{
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    width:90%;
+    max-width:400px;
+    box-shadow:0 10px 40px rgba(0,0,0,.3)
+}
+
+.modal-box h2{
+    margin-bottom:20px;
+    color:#333;
+    text-align:center
+}
+
+.form-group{
+    margin-bottom:15px;
+    display:flex;
+    flex-direction:column
+}
+
+.form-group label{
+    font-weight:600;
+    margin-bottom:6px;
+    color:#333;
+    font-size:.9rem
+}
+
+.form-group input{
+    padding:10px;
+    border:2px solid #ddd;
+    border-radius:8px;
+    font-size:.95rem;
+    font-family:inherit;
+    transition:border-color .3s ease
+}
+
+.form-group input:focus{
+    outline:none;
+    border-color:#667eea;
+    box-shadow:0 0 8px rgba(102,126,234,.4)
+}
+
+.modal-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:20px
+}
+
+.btn-submit{
+    background:linear-gradient(135deg,#4CAF50,#45a049);
+    color:#fff;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .3s ease
+}
+
+.btn-submit:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(76,175,80,.3)
+}
+
+.btn-cancel{
+    background:#f44336;
+    color:#fff;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .3s ease
+}
+
+.btn-cancel:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(244,67,54,.3)
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .jadwal-container{
+        grid-template-columns:1fr
+    }
+    
+    h1{
+        font-size:1.8rem;
+        margin-bottom:25px
+    }
+    
+    .jadwal-row{
+        grid-template-columns:1.5fr 1fr auto;
+        gap:8px;
+        padding:8px
+    }
+    
+    .jadwal-mapel{
+        font-size:.9rem
+    }
+    
+    .jadwal-waktu{
+        font-size:.8rem
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>📅 Jadwal Sekolah</h1>
+    
+    <div class="jadwal-container" id="jadwalContainer"></div>
+</div>
+
+<!-- MODAL TAMBAH JADWAL -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <h2 id="modalTitle">Tambah Jadwal</h2>
+        
+        <div class="form-group">
+            <label>Mata Pelajaran</label>
+            <input type="text" id="inputMapel" placeholder="Contoh: Matematika">
+        </div>
+        
+        <div class="form-group">
+            <label>Waktu</label>
+            <input type="text" id="inputWaktu" placeholder="Contoh: 07:00-08:30">
+        </div>
+        
+        <div class="modal-buttons">
+            <button class="btn-submit" onclick="submitJadwal()">Tambah</button>
+            <button class="btn-cancel" onclick="closeModal()">Batal</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const KEY="jadwal_sekolah"
+const HARI=["Senin","Selasa","Rabu","Kamis","Jumat"]
+let jadwal={}
+let currentHari=null
+
+function initJadwal(){
+    HARI.forEach(hari=>{
+        if(!jadwal[hari]) jadwal[hari]=[]
+    })
+}
+
+function save(){
+    localStorage.setItem(KEY,JSON.stringify(jadwal))
+}
+
+function load(){
+    const data=localStorage.getItem(KEY)
+    jadwal=data?JSON.parse(data):{}
+    initJadwal()
+}
+
+function render(){
+    const container=document.getElementById('jadwalContainer')
+    container.innerHTML=HARI.map(hari=>`
+        <div class="hari-card">
+            <div class="hari-header">
+                <div class="hari-nama">${hari}</div>
+                <button class="btn-add-jadwal" onclick="openModal('${hari}')">+</button>
+            </div>
+            
+            <div class="jadwal-list" id="list-${hari}">
+                ${jadwal[hari].length===0?'<div class="empty-state">Belum ada jadwal</div>':''}
+                ${jadwal[hari].map((j,i)=>`
+                    <div class="jadwal-row">
+                        <div class="jadwal-mapel">${esc(j.mapel)}</div>
+                        <div class="jadwal-waktu">${esc(j.waktu)}</div>
+                        <button class="btn-delete-jadwal" onclick="deleteJadwal('${hari}',${i})">✕</button>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('')
+}
+
+function openModal(hari){
+    currentHari=hari
+    document.getElementById('modalTitle').textContent=`Tambah Jadwal ${hari}`
+    document.getElementById('inputMapel').value=''
+    document.getElementById('inputWaktu').value=''
+    document.getElementById('modal').style.display='flex'
+    document.getElementById('inputMapel').focus()
+}
+
+function closeModal(){
+    document.getElementById('modal').style.display='none'
+    currentHari=null
+}
+
+function submitJadwal(){
+    const mapel=document.getElementById('inputMapel').value.trim()
+    const waktu=document.getElementById('inputWaktu').value.trim()
+    
+    if(!mapel||!waktu){
+        alert('⚠️ Lengkapi semua field!')
+        return
+    }
+    
+    jadwal[currentHari].push({
+        mapel:mapel,
+        waktu:waktu
+    })
+    
+    save()
+    render()
+    closeModal()
+    alert(`✅ Jadwal ${currentHari} berhasil ditambahkan!`)
+}
+
+function deleteJadwal(hari,index){
+    if(confirm(`Hapus jadwal ini?`)){
+        jadwal[hari].splice(index,1)
+        save()
+        render()
+    }
+}
+
+function esc(t){
+    const d=document.createElement('div')
+    d.textContent=t
+    return d.innerHTML
+}
+
+// Close modal saat klik di luar
+document.getElementById('modal').addEventListener('click',(e)=>{
+    if(e.target.id==='modal') closeModal()
+})
+
+// Enter key untuk submit
+document.addEventListener('keypress',(e)=>{
+    if(e.key==='Enter'&&document.getElementById('modal').style.display==='flex'){
+        submitJadwal()
+    }
+})
+
+load()
+render()
+</script>
+</body>
+</html>
