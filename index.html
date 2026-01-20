@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>SCHAPPS - Main Page</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+
+        body{
+            font-family:Segoe UI,Tahoma,Verdana,sans-serif;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            min-height:100vh;
+            padding:30px 20px;
+            overflow-x:hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container{max-width:1200px;margin:auto;text-align:center}
+
+        h1{
+            text-align:center;
+            color:#fff;
+            margin-bottom:40px;
+            font-size:2.5rem;
+            text-shadow:2px 2px 4px rgba(0,0,0,.3)
+        }
+
+        p {
+            color: #fff;
+            margin-bottom: 40px;
+            font-weight: bold;
+            font-size:1.1rem;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background:#fff;
+            border-radius:15px;
+            box-shadow:0 10px 30px rgba(0,0,0,.3);
+            width: 250px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .pink-card {
+            background:#ff8080;
+        }
+        
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size:1.2rem;
+        }
+
+        .card p {
+            margin: 0;
+            color: #666;
+            font-size:.9rem;
+        }
+
+        .pink-card p {
+            color: #ffffff;
+
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            h1{
+                font-size:1.8rem;
+                margin-bottom:25px
+            }
+            
+            .card{
+                width:100%;
+                max-width:300px
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Selamat Datang di SCHAPPS</h1>
+    <p>Aplikasi untuk sekolah.</p>
+    <div class="cards-container">
+        <a href="JadwalSekolah.html" class="card">
+            <h2>Jadwal Sekolah</h2>
+            <p>Solusi joss, biar gak harus repot buka PDF.</p>
+        </a>
+        <a href="JurnalHarian.html" class="card pink-card">
+            <h2>Jurnal Harian</h2>
+            <p>Tulis "My kisah" di kehidupan kamu.</p>
+        </a>
+        <a href="KegiatanOSIS.html" class="card">
+            <h2>Kegiatan OSIS</h2>
+            <p>Aplikasi buat "si paling sibuk dan disiplin".</p>
+        </a>
+        <a href="TugasSekolah.html" class="card">
+            <h2>Tugas Sekolah</h2>
+            <p>Biar ga lupa nugas, catet dulu yuk.</p>
+        </a>
+        <a href="NgerumpiSkuy.html" class="card pink-card">
+            <h2>Ngerumpi Skuy</h2>
+            <p>Bahas hal absurd dan random bareng temen.</p>
+        </a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Ngerumpi Skuy</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg,#ff9a9e,#fecfef);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+#chat-app {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.3);
+    overflow: hidden;
+}
+
+/* HEADER */
+#header {
+    background: linear-gradient(135deg,#ff9a9e,#fecfef);
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#clearBtn {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* MESSAGES */
+#messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f9f9f9;
+}
+
+.message {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.other { background: white; align-self: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.self { background: #ffb6c1; align-self: flex-end; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+
+.name {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #555;
+}
+
+/* INPUT */
+#input-area {
+    display: flex;
+    padding: 10px;
+    background: #f0f0f0;
+    gap: 8px;
+}
+
+#nameInput,
+#messageInput {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+#nameInput { width: 30%; }
+#messageInput { flex: 1; }
+
+#sendButton {
+    background: linear-gradient(135deg,#ff6b9d,#c44569);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all .3s ease;
+    box-shadow: 0 3px 10px rgba(255,107,157,.3);
+}
+
+#sendButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(255,107,157,.5);
+}
+</style>
+</head>
+
+<body>
+
+<div id="chat-app">
+    <div id="header">
+        Ngerumpi Skuy 💬
+        <button id="clearBtn">🗑</button>
+    </div>
+
+    <div id="messages"></div>
+
+    <div id="input-area">
+        <input id="nameInput" placeholder="Nama">
+        <input id="messageInput" placeholder="Ketik pesan...">
+        <button id="sendButton">➤</button>
+    </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    onSnapshot, 
+    query, 
+    orderBy, 
+    serverTimestamp,
+    getDocs,
+    deleteDoc,
+    doc
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAGS_00EGf85mU36rN6_J_3JEAsxvMzn5g",
+    authDomain: "universal-databases.firebaseapp.com",
+    projectId: "universal-databases",
+    storageBucket: "universal-databases.firebasestorage.app",
+    messagingSenderId: "238780443230",
+    appId: "1:238780443230:web:2286f232844108e53de2cf"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const messagesRef = collection(db, "messages");
+const q = query(messagesRef, orderBy("timestamp", "asc"));
+const messagesDiv = document.getElementById("messages");
+
+/* REALTIME CHAT */
+onSnapshot(q, snapshot => {
+    messagesDiv.innerHTML = "";
+    snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const div = document.createElement("div");
+
+        const myName = document.getElementById("nameInput").value.trim();
+        div.className = `message ${data.name === myName ? "self" : "other"}`;
+
+        div.innerHTML = `
+            <div class="name">${data.name || "Anonim"}</div>
+            ${data.text}
+        `;
+        messagesDiv.appendChild(div);
+    });
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+});
+
+/* SEND MESSAGE */
+function sendMessage() {
+    const name = document.getElementById("nameInput").value.trim() || "Anonim";
+    const text = document.getElementById("messageInput").value.trim();
+    if (!text) return;
+
+    addDoc(messagesRef, {
+        name,
+        text,
+        timestamp: serverTimestamp()
+    });
+
+    document.getElementById("messageInput").value = "";
+}
+
+document.getElementById("sendButton").onclick = sendMessage;
+document.getElementById("messageInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") sendMessage();
+});
+
+/* CLEAR CHAT */
+document.getElementById("clearBtn").onclick = async () => {
+    const pass = prompt("Masukkan password untuk clear chat:");
+    if (pass !== "yasaganteng") {
+        alert("❌ Password salah!");
+        return;
+    }
+
+    if (!confirm("⚠️ Yakin mau hapus SEMUA chat?")) return;
+
+    const snapshot = await getDocs(messagesRef);
+    snapshot.forEach(d => deleteDoc(doc(db, "messages", d.id)));
+
+    alert("✅ Chat berhasil dihapus!");
+};
+</script>
+
+</body>
+</html>
