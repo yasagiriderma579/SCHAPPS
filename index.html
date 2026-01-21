@@ -8,33 +8,37 @@
         *{box-sizing:border-box;margin:0;padding:0}
 
         body{
-            font-family:Segoe UI,Tahoma,Verdana,sans-serif;
-            background:linear-gradient(135deg,#667eea,#764ba2);
+            font-family: Segoe UI, Tahoma, Verdana, sans-serif;
+            background:
+                linear-gradient(135deg, #0f0f1a, #1b1b3a);
             min-height:100vh;
             padding:30px 20px;
             overflow-x:hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
         }
+
 
         .container{max-width:1200px;margin:auto;text-align:center}
 
         h1{
             text-align:center;
-            color:#fff;
-            margin-bottom:40px;
-            font-size:2.5rem;
-            text-shadow:2px 2px 4px rgba(0,0,0,.3)
+            color:#ffffff;
+            margin-bottom:15px;
+            font-size:2.6rem;
+            font-weight:800;
+            letter-spacing:1px;
         }
 
-        p {
-            color: #fff;
-            margin-bottom: 40px;
-            font-weight: bold;
-            font-size:1.1rem;
+        .container > p{
+            color:#c7c7ff;
+            margin-bottom:45px;
+            font-weight:500;
+            font-size:1.05rem;
         }
+
 
         .cards-container {
             display: flex;
@@ -43,69 +47,90 @@
             justify-content: center;
         }
 
-        .card {
-            border-radius:15px;
-            box-shadow:0 10px 30px rgba(0,0,0,.3);
-            width: 250px;
-            padding: 25px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: inherit;
+        .card{
+            border-radius:18px;
+            width:250px;
+            padding:26px 24px;
+            text-align:center;
+            text-decoration:none;
+            border:1px solid rgba(255,255,255,0.18);
+            backdrop-filter: blur(14px);
+            background: rgba(255,255,255,0.08);
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.35),
+                inset 0 0 0 rgba(255,255,255,.2);
+            transition: 
+                transform .3s ease,
+                box-shadow .3s ease,
+                filter .3s ease;
         }
 
-        /* Card 1 - Jadwal (Blue) */
-        .card:nth-child(1) {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
-        }
-
-        /* Card 2 - Jurnal (Pink) */
-        .card:nth-child(2) {
-            background: linear-gradient(135deg, #ff6b9d, #c44569);
-            color: #fff;
-        }
-
-        /* Card 3 - OSIS (Teal) */
-        .card:nth-child(3) {
-            background: linear-gradient(135deg, #11998e, #38ef7d);
-            color: #fff;
-        }
-
-        /* Card 4 - Tugas (Orange) */
-        .card:nth-child(4) {
-            background: linear-gradient(135deg, #ff9a56, #ff6a88);
-            color: #fff;
-        }
-
-        /* Card 5 - Ngerumpi (Magenta) */
-        .card:nth-child(5) {
-            background: linear-gradient(135deg, #ee0979, #ff6a00);
-            color: #fff;
-        }
-
-        /* Card 6 - Dolanan (Green) */
-        .card:nth-child(6) {
-            background: linear-gradient(135deg, #66ea83, #4ba24b);
-            color: #fff;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .card h2 {
-            margin: 0 0 10px 0;
-            font-size:1.2rem;
-            font-weight: 700;
-        }
-
-        .card p {
+        .card p, .card h2{
             margin: 0;
             font-size:.9rem;
             opacity: 0.95;
+            color: black;
         }
+
+
+        /* Jadwal */
+        .card:nth-child(1){
+            background: linear-gradient(135deg, #ffffff, #ff4d00);
+
+        }
+
+        /* Jurnal */
+        .card:nth-child(2){
+            background: linear-gradient(135deg, #ffffff, #00e1ff);
+
+        }
+
+        /* OSIS */
+        .card:nth-child(3){
+            background: linear-gradient(135deg, #ffffff, #2b00ff);
+
+        }
+
+        /* Tugas */
+        .card:nth-child(4){
+            background: linear-gradient(135deg, #ffffff, #fbff00);
+
+        }
+
+        /* Ngerumpi */
+        .card:nth-child(5){
+            background: linear-gradient(135deg, #ffffff, #ff00e6);
+
+        }
+
+        /* Dolanan */
+        .card:nth-child(6){
+            background: linear-gradient(135deg, #ffffff, #11ff00);
+
+        }
+
+
+        .card h2{
+            margin-bottom:10px;
+            font-size:1.25rem;
+            font-weight:800;
+        }
+
+        .card p{
+            font-size:.92rem;
+            opacity:.95;
+            line-height:1.4;
+        }
+
+
+        .card:hover{
+            transform: translateY(-8px) scale(1.03);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.45),
+                0 0 25px rgba(255,255,255,.25);
+            filter: brightness(1.12);
+        }
+
 
         /* RESPONSIVE */
         @media(max-width:768px){

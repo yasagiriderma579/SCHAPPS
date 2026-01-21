@@ -16,6 +16,34 @@ body {
     justify-content: center;
     min-height: 100vh;
     padding: 20px;
+    position: relative;
+}
+
+body::before{
+    content:'💖';
+    position:fixed;
+    top:10%;
+    left:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 6s ease-in-out infinite;
+    z-index:-1
+}
+
+body::after{
+    content:'😭';
+    position:fixed;
+    bottom:10%;
+    right:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 8s ease-in-out infinite;
+    z-index:-1
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0px)}
+    50%{transform:translateY(-20px)}
 }
 
 #chat-app {
@@ -24,7 +52,7 @@ body {
     background: #fff;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 90vh;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,.3);
     overflow: hidden;
@@ -53,7 +81,7 @@ body {
 /* MESSAGES */
 #messages {
     flex: 1;
-    padding: 15px;
+    padding: 10px;
     overflow-y: auto;
     background: #f9f9f9;
 }
@@ -221,4 +249,3 @@ document.getElementById("clearBtn").onclick = async () => {
 
 </body>
 </html>
-

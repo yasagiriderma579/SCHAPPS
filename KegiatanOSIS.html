@@ -10,15 +10,60 @@
 
 body{
     font-family:Segoe UI,Tahoma,Verdana,sans-serif;
-    background:linear-gradient(135deg,#667eea,#764ba2);
+    background:linear-gradient(135deg,#c0c0ff,#8080ff,#2b00ff);
     min-height:100vh;
     padding:30px;
-    overflow-x: hidden;
+    overflow-x:hidden;
+    position:relative
+}
+
+body::before{
+    content:'🎯';
+    position:fixed;
+    top:10%;
+    left:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 6s ease-in-out infinite;
+    z-index:-1
+}
+
+body::after{
+    content:'⭐';
+    position:fixed;
+    bottom:10%;
+    right:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 8s ease-in-out infinite;
+    z-index:-1
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0px)}
+    50%{transform:translateY(-20px)}
 }
 
 .container{max-width:1000px;margin:auto}
-h1{text-align:center;color:#fff;margin-bottom:30px}
 
+h1{
+    text-align:center;
+    color:#fff;
+    margin-bottom:40px;
+    font-size:2.8rem;
+    text-shadow:2px 2px 8px rgba(0,0,0,.2);
+    font-weight:800;
+    letter-spacing:2px
+}
+h2{
+    margin-bottom:10px;
+    font-size:1.8rem;
+    color:#927cff;
+}
+h3{
+    margin-bottom:8px;
+    color:#927cff;
+}
 /* LAYOUT UTAMA */
 .main{
     display:grid;
@@ -38,12 +83,12 @@ h1{text-align:center;color:#fff;margin-bottom:30px}
 }
 
 /* FORM */
-label{font-weight:600;margin-bottom:6px;display:block}
+label{font-weight:600;margin-bottom:6px;display:block;color:#6958c0}
 input,textarea{
     width:100%;
     padding:10px;
     border-radius:8px;
-    border:2px solid #ddd;
+    border:2px solid #c2b6ff;
     margin-bottom:15px;
     max-width:100%;
     box-sizing:border-box
@@ -52,6 +97,12 @@ textarea{
     min-height:90px;
     resize:vertical;
     overflow:auto
+}
+
+input:focus,textarea:focus{
+    outline:none;
+    border-color:#2b00ff;
+    box-shadow:0 0 12px rgba(43,0,255,.35)
 }
 
 input[type=range]{
@@ -73,16 +124,16 @@ input[type=range]::-webkit-slider-thumb{
     width:24px;
     height:24px;
     border-radius:50%;
-    background:linear-gradient(135deg, #667eea, #764ba2);
+    background:linear-gradient(135deg, #ac9cff, #7948ff);
     cursor:pointer;
-    box-shadow:0 2px 8px rgba(102, 126, 234, 0.4);
+    box-shadow:0 2px 8px rgba(43, 0, 255, 0.4);
     transition:all .2s ease;
     border:3px solid #fff
 }
 
 input[type=range]::-webkit-slider-thumb:hover{
     transform:scale(1.2);
-    box-shadow:0 4px 15px rgba(102, 126, 234, 0.6)
+    box-shadow:0 4px 15px rgba(43, 0, 255, 0.6)
 }
 
 input[type=range]::-webkit-slider-thumb:active{
@@ -93,16 +144,16 @@ input[type=range]::-moz-range-thumb{
     width:24px;
     height:24px;
     border-radius:50%;
-    background:linear-gradient(135deg, #667eea, #764ba2);
+    background:linear-gradient(135deg, #2b00ff, #4400ff);
     cursor:pointer;
-    box-shadow:0 2px 8px rgba(102, 126, 234, 0.4);
+    box-shadow:0 2px 8px rgba(43, 0, 255, 0.4);
     border:3px solid #fff;
     transition:all .2s ease
 }
 
 input[type=range]::-moz-range-thumb:hover{
     transform:scale(1.2);
-    box-shadow:0 4px 15px rgba(102, 126, 234, 0.6)
+    box-shadow:0 4px 15px rgba(43, 0, 255, 0.6)
 }
 
 input[type=range]::-moz-range-track{
@@ -111,7 +162,7 @@ input[type=range]::-moz-range-track{
 }
 .progress-text{
     font-size:.85rem;
-    color:#667eea;
+    color:#4d29ff;
     margin-bottom:10px;
     font-weight:600;
     display:flex;
@@ -121,17 +172,17 @@ input[type=range]::-moz-range-track{
 
 .progress-text span:first-child{
     font-size:.9rem;
-    color:#333
+    color:#678bca
 }
 
 .progress-text span:last-child{
-    background:linear-gradient(135deg, #667eea, #764ba2);
+    background:linear-gradient(135deg, #ae9eff, #7746ff);
     color:#fff;
     padding:6px 16px;
     border-radius:25px;
     font-weight:700;
     font-size:0.9rem;
-    box-shadow:0 4px 12px rgba(102, 126, 234, 0.3);
+    box-shadow:0 4px 12px rgba(43, 0, 255, 0.3);
     min-width:50px;
     text-align:center;
     transition:all .2s ease
@@ -160,20 +211,20 @@ button{
 }
 
 .btn-add{
-    background:linear-gradient(135deg,#4CAF50,#45a049);
+    background:linear-gradient(135deg,#ad8fff,#6a4cff);
     color:#fff;
     grid-column:1
 }
 .btn-add:hover{
     transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(76,175,80,.35)
+    box-shadow:0 8px 20px rgba(43,0,255,.35)
 }
 .btn-add:active{
     transform:translateY(0)
 }
 
 .btn-clear{
-    background:linear-gradient(135deg,#f44336,#da190b);
+    background:linear-gradient(135deg,#dc8079,#da190b);
     color:#fff;
     grid-column:2
 }
@@ -197,7 +248,7 @@ button{
 }
 
 .thumb{
-    border-left:5px solid #667eea;
+    border-left:5px solid #5141a4;
     cursor:pointer;
     transition:.2s;
     overflow: hidden;
@@ -205,7 +256,7 @@ button{
 .thumb:hover{transform:scale(1.01)}
 
 .thumb h3{font-size:1.05rem}
-.date{font-size:.8rem;color:#667eea;margin-bottom:6px}
+.date{font-size:.8rem;color:#6655b8;margin-bottom:6px}
 .desc{font-size:.85rem;color:#666;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -221,7 +272,7 @@ button{
 }
 .fill{
     height:100%;
-    background:linear-gradient(90deg,#667eea,#764ba2)
+    background:linear-gradient(90deg,#a796ff,#7543ff)
 }
 
 /* MODAL */
@@ -242,16 +293,16 @@ button{
     max-width:500px
 }
 .modal-box h2{margin-bottom:5px}
-.modal-box small{color:#667eea}
+.modal-box small{color:#463699}
 .modal-box p{margin:15px 0;color:#555}
 
 .btn-delete{
-    background:#f44336;
+    background:linear-gradient(135deg,#dc8079,#da190b);
     color:#fff;
     margin-top:10px
 }
 .btn-close{
-    background:#667eea;
+    background:linear-gradient(135deg,#ad8fff,#6a4cff);
     color:#fff;
     margin-top:10px
 }
@@ -264,12 +315,12 @@ button{
     width:60px;
     height:60px;
     border-radius:50%;
-    background:linear-gradient(135deg, #4CAF50, #45a049);
-    color:#fff;
+    background:linear-gradient(135deg, #f0eeff, #7c7eff);
+    color:#040048;
     border:none;
     cursor:pointer;
     font-size:28px;
-    box-shadow:0 4px 15px rgba(76, 175, 80, 0.4);
+    box-shadow:0 4px 15px rgba(76, 87, 175, 0.4);
     transition:all .3s ease;
     display:flex;
     align-items:center;
@@ -279,7 +330,7 @@ button{
 
 .floating-btn:hover{
     transform:scale(1.1);
-    box-shadow:0 6px 25px rgba(76, 175, 80, 0.6)
+    box-shadow:0 4px 15px rgba(81, 76, 175, 0.6);
 }
 
 .floating-btn:active{
@@ -298,7 +349,7 @@ button{
     width:40px;
     height:40px;
     border-radius:50%;
-    background:linear-gradient(135deg, #f44336, #da190b);
+    background:linear-gradient(135deg, #ec918b, #ec4034);
     color:#fff;
     border:none;
     cursor:pointer;
@@ -316,7 +367,7 @@ button{
 }
 
 .btn-close-card:hover{
-    background:linear-gradient(135deg, #da190b, #c41107);
+    background:linear-gradient(135deg, #db382d, #c41107);
     transform:scale(1.15) rotate(90deg);
     box-shadow:0 6px 18px rgba(244, 67, 54, 0.5)
 }
@@ -330,10 +381,49 @@ button{
     padding-top:50px
 }
 
-/* PORTRAIT / MOBILE */
+/* RESPONSIVE - MOBILE */
 @media(max-width:800px){
     .main{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr
+    }
+    
+    .floating-btn{
+        bottom:20px;
+        right:20px;
+        width:55px;
+        height:55px;
+        font-size:24px
+    }
+    
+    #inputCard{
+        display:none
+    }
+
+    #inputCard.show{
+        display:block !important
+    }
+
+    .floating-btn{
+        display:flex
+    }
+    
+    .floating-btn.hidden{
+        display:none !important
+    }
+}
+
+/* RESPONSIVE - DESKTOP */
+@media(min-width:801px){
+    #inputCard{
+        display:block
+    }
+
+    .floating-btn{
+        display:none
+    }
+
+    .btn-close-card{
+        display:none
     }
 }
 </style>
@@ -346,7 +436,7 @@ button{
 <div class="main">
 
 <!-- INPUT CARD -->
-<div class="card input-card-wrapper" id="inputCard" style="display:none">
+<div class="card input-card-wrapper" id="inputCard">
 <button class="btn-close-card" onclick="toggleInputCard()">✕</button>
 <label>Nama Kegiatan</label>
 <input id="nama">
@@ -477,16 +567,17 @@ function hapus(){
 }
 
 function toggleInputCard(){
-    const inputCard=document.getElementById('inputCard')
-    const floatingBtn=document.getElementById('floatingBtn')
-    
-    if(inputCard.style.display==='none'){
-        inputCard.style.display='block'
-        floatingBtn.classList.add('hidden')
-        nama.focus()
+    const inputCard = document.getElementById('inputCard');
+    const floatingBtn = document.getElementById('floatingBtn');
+
+    inputCard.classList.toggle('show');
+
+    if(inputCard.classList.contains('show')){
+        floatingBtn.classList.add('hidden');
+        const firstInput = inputCard.querySelector('input');
+        if(firstInput) firstInput.focus();
     }else{
-        inputCard.style.display='none'
-        floatingBtn.classList.remove('hidden')
+        floatingBtn.classList.remove('hidden');
     }
 }
 

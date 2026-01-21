@@ -10,14 +10,51 @@
 
 body{
     font-family:Segoe UI,Tahoma,Verdana,sans-serif;
-    background:linear-gradient(135deg,#667eea,#764ba2);
+    background:linear-gradient(135deg,#faf3be,#fbe44c,#fbff00);
     min-height:100vh;
     padding:30px;
-    overflow-x: hidden;
+    overflow-x:hidden;
+    position:relative
+}
+
+body::before{
+    content:'💪';
+    position:fixed;
+    top:10%;
+    left:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 6s ease-in-out infinite;
+    z-index:-1
+}
+
+body::after{
+    content:'🧠';
+    position:fixed;
+    bottom:10%;
+    right:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 8s ease-in-out infinite;
+    z-index:-1
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0px)}
+    50%{transform:translateY(-20px)}
 }
 
 .container{max-width:1000px;margin:auto}
-h1{text-align:center;color:#fff;margin-bottom:30px}
+
+h1{
+    text-align:center;
+    color:#fff;
+    margin-bottom:40px;
+    font-size:2.8rem;
+    text-shadow:2px 2px 8px rgba(0,0,0,.2);
+    font-weight:800;
+    letter-spacing:2px
+}
 
 /* LAYOUT UTAMA */
 .main{
@@ -38,12 +75,12 @@ h1{text-align:center;color:#fff;margin-bottom:30px}
 }
 
 /* FORM */
-label{font-weight:600;margin-bottom:6px;display:block}
+label{font-weight:600;margin-bottom:6px;display:block;color:#d4a800}
 input,select{
     width:100%;
     padding:10px;
     border-radius:8px;
-    border:2px solid #ddd;
+    border:2px solid #ffe680;
     margin-bottom:15px;
     max-width:100%;
     box-sizing:border-box;
@@ -56,8 +93,8 @@ input[type=date]::-webkit-calendar-picker-indicator{
 
 input:focus,select:focus{
     outline:none;
-    border-color:#667eea;
-    box-shadow:0 0 8px rgba(102, 126, 234, 0.4)
+    border-color:#fbff00;
+    box-shadow:0 0 12px rgba(251,255,0,.35)
 }
 
 button{
@@ -78,20 +115,20 @@ button{
 }
 
 .btn-add{
-    background:linear-gradient(135deg,#4CAF50,#45a049);
-    color:#fff;
+    background:linear-gradient(135deg,#f6f8a3,#ffdd33);
+    color:#000;
     grid-column:1
 }
 .btn-add:hover{
     transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(76,175,80,.35)
+    box-shadow:0 8px 20px rgba(251,255,0,.35)
 }
 .btn-add:active{
     transform:translateY(0)
 }
 
 .btn-clear{
-    background:linear-gradient(135deg,#f44336,#da190b);
+    background:linear-gradient(135deg,#f07e76,#da2c1f);
     color:#fff;
     grid-column:2
 }
@@ -107,12 +144,12 @@ button{
 .filter-section{
     margin-bottom:20px;
     padding-bottom:15px;
-    border-bottom:2px solid #f0f0f0;
+    border-bottom:2px solid #f0f0f0
 }
 
 .filter-section label{
     font-size:.9rem;
-    color:#667eea
+    color:#d4a800
 }
 
 .filter-section select{
@@ -131,13 +168,19 @@ button{
 }
 
 .thumb{
-    border-left:5px solid #667eea;
+    background:linear-gradient(135deg,#fff7db,#fff6a7);
+    border:2px solid #ffdd00;
+    border-radius:15px;
     cursor:pointer;
-    transition:.2s;
-    overflow: hidden;
+    transition:all .3s ease;
+    overflow:hidden;
     position:relative;
+    padding:15px
 }
-.thumb:hover{transform:scale(1.01)}
+.thumb:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(251,255,0,.25)
+}
 
 .thumb h3{font-size:1.05rem;margin-bottom:6px}
 
@@ -150,25 +193,32 @@ button{
 
 .task-mapel{
     font-size:.75rem;
-    background:linear-gradient(135deg, #667eea, #764ba2);
-    color:#fff;
-    padding:4px 10px;
-    border-radius:15px;
+    background:linear-gradient(135deg,#ffdd00,#ffee66);
+    color:#000;
+    padding:6px 12px;
+    border-radius:12px;
     font-weight:600
 }
 
 .task-deadline{
     font-size:.75rem;
-    background:#fff3cd;
-    color:#856404;
-    padding:4px 10px;
-    border-radius:15px;
+    background:#ffa704;
+    color:#fff6db;
+    padding:6px 12px;
+    border-radius:12px;
     font-weight:600
 }
 
 .task-deadline.urgent{
-    background:#f8d7da;
-    color:#721c24
+    background:#2c2c2c;
+    color:#fff;
+    font-weight:700
+}
+
+.task-deadline.warning{
+    background:#d32f2f;
+    color:#fff;
+    font-weight:700
 }
 
 .btn-delete-task{
@@ -214,14 +264,14 @@ button{
 .modal-box p{margin:15px 0;color:#555;line-height:1.6}
 
 .btn-delete{
-    background:#f44336;
+    background:linear-gradient(135deg,#f07e76,#da2c1f);
     color:#fff;
     margin-top:10px;
     width:100%
 }
 .btn-close-modal{
-    background:#667eea;
-    color:#fff;
+    background:linear-gradient(135deg,#f3f596,#fadc49);
+    color:#000;
     margin-top:10px;
     width:100%
 }
@@ -306,10 +356,10 @@ button{
     padding:40px 20px;
 }
 
-/* PORTRAIT / MOBILE */
+/* RESPONSIVE - MOBILE */
 @media(max-width:800px){
     .main{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr
     }
     
     .floating-btn{
@@ -324,6 +374,37 @@ button{
         flex-direction:column;
         gap:5px
     }
+    
+    #inputCard{
+        display:none
+    }
+
+    #inputCard.show{
+        display:block !important
+    }
+
+    .floating-btn{
+        display:flex
+    }
+    
+    .floating-btn.hidden{
+        display:none !important
+    }
+}
+
+/* RESPONSIVE - DESKTOP */
+@media(min-width:801px){
+    #inputCard{
+        display:block
+    }
+
+    .floating-btn{
+        display:none
+    }
+
+    .btn-close-card{
+        display:none
+    }
 }
 </style>
 </head>
@@ -335,7 +416,7 @@ button{
 <div class="main">
 
 <!-- INPUT CARD -->
-<div class="card input-card-wrapper" id="inputCard" style="display:none">
+<div class="card input-card-wrapper" id="inputCard">
 <button class="btn-close-card" onclick="toggleInputCard()">✕</button>
 
 <label>Nama Tugas</label>
@@ -446,7 +527,7 @@ function isUrgent(deadline){
     const deadlineDate=new Date(deadline)
     deadlineDate.setHours(0,0,0,0)
     const daysLeft=Math.ceil((deadlineDate-today)/(1000*60*60*24))
-    return daysLeft<=3&&daysLeft>0
+    return daysLeft<=1
 }
 
 function getDaysLeft(deadline){
@@ -471,8 +552,11 @@ function renderTugas(){
 
     output.innerHTML=filtered.map(t=>{
         const daysLeft=getDaysLeft(t.deadline)
-        const urgent=isUrgent(t.deadline)
+        let urgencyClass=''
         const deadlineText=daysLeft===0?"Hari ini":daysLeft===1?"Besok":daysLeft>0?daysLeft+" hari lagi":"Lewat"
+        
+        if(daysLeft<=1) urgencyClass='urgent'
+        else if(daysLeft<=3) urgencyClass='warning'
         
         return `
         <div class="card thumb" onclick="openDetail(${t.id})">
@@ -480,7 +564,7 @@ function renderTugas(){
             <h3>${esc(t.nama)}</h3>
             <div class="task-meta">
                 <span class="task-mapel">${esc(t.mapel)}</span>
-                <span class="task-deadline ${urgent?'urgent':''}">📅 ${new Date(t.deadline).toLocaleDateString("id-ID")} (${deadlineText})</span>
+                <span class="task-deadline ${urgencyClass}">📅 ${new Date(t.deadline).toLocaleDateString("id-ID")} (${deadlineText})</span>
             </div>
         </div>
         `
@@ -537,16 +621,17 @@ function hapusTugasQuick(id){
 }
 
 function toggleInputCard(){
-    const inputCard=document.getElementById('inputCard')
-    const floatingBtn=document.getElementById('floatingBtn')
-    
-    if(inputCard.style.display==='none'){
-        inputCard.style.display='block'
-        floatingBtn.classList.add('hidden')
-        document.getElementById('namaTugas').focus()
+    const inputCard = document.getElementById('inputCard');
+    const floatingBtn = document.getElementById('floatingBtn');
+
+    inputCard.classList.toggle('show');
+
+    if(inputCard.classList.contains('show')){
+        floatingBtn.classList.add('hidden');
+        const firstInput = inputCard.querySelector('input');
+        if(firstInput) firstInput.focus();
     }else{
-        inputCard.style.display='none'
-        floatingBtn.classList.remove('hidden')
+        floatingBtn.classList.remove('hidden');
     }
 }
 

@@ -10,7 +10,7 @@
 
 body{
     font-family:'Poppins',Segoe UI,Tahoma,Verdana,sans-serif;
-    background:linear-gradient(135deg,#ffd6e8,#c7a2ff,#a8d8ff);
+    background:linear-gradient(135deg,#66e6f0,#00c4d4,#00e1ff);
     min-height:100vh;
     padding:30px 20px;
     overflow-x:hidden;
@@ -24,7 +24,8 @@ body::before{
     left:5%;
     font-size:3rem;
     opacity:.3;
-    animation:float 6s ease-in-out infinite
+    animation:float 6s ease-in-out infinite;
+    z-index:-1
 }
 
 body::after{
@@ -34,7 +35,8 @@ body::after{
     right:5%;
     font-size:3rem;
     opacity:.3;
-    animation:float 8s ease-in-out infinite
+    animation:float 8s ease-in-out infinite;
+    z-index:-1
 }
 
 @keyframes float{
@@ -73,21 +75,64 @@ h1{
     border:2px solid rgba(255,255,255,.8)
 }
 
+.input-card-wrapper{
+    position:relative;
+    padding-top:50px
+}
+
+.btn-close-card{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg, #ff6b9d, #ff4757);
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    font-size:24px;
+    font-weight:300;
+    line-height:1;
+    box-shadow:0 4px 12px rgba(255, 107, 157, 0.35);
+    transition:all .3s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    min-width:40px;
+    min-height:40px
+}
+
+.btn-close-card:hover{
+    background:linear-gradient(135deg, #ff4757, #ff3a47);
+    transform:scale(1.15) rotate(90deg);
+    box-shadow:0 6px 18px rgba(255, 107, 157, 0.5)
+}
+
+.btn-close-card:active{
+    transform:scale(1.05) rotate(90deg)
+}
+
 /* FORM */
 label{
     font-weight:700;
     margin-bottom:10px;
     display:block;
-    color:#5a4d8e;
+    color:#0088a0;
     font-size:1rem;
     letter-spacing:.5px
+}
+
+#inputCard label:first-of-type{
+    margin-top:15px
 }
 
 textarea{
     width:100%;
     padding:15px;
     border-radius:15px;
-    border:2px solid #ffc0d9;
+    border:2px solid #66d4e8;
     margin-bottom:15px;
     min-height:150px;
     resize:vertical;
@@ -105,15 +150,15 @@ textarea::placeholder{
 
 textarea:focus{
     outline:none;
-    border-color:#a8d8ff;
-    box-shadow:0 0 15px rgba(168,216,255,.4)
+    border-color:#00e1ff;
+    box-shadow:0 0 15px rgba(0,225,255,.4)
 }
 
 input[type=date]{
     width:100%;
     padding:12px 15px;
     border-radius:15px;
-    border:2px solid #ffc0d9;
+    border:2px solid #00e1ff;
     margin-bottom:20px;
     font-family:inherit;
     font-size:.95rem;
@@ -123,8 +168,8 @@ input[type=date]{
 
 input[type=date]:focus{
     outline:none;
-    border-color:#a8d8ff;
-    box-shadow:0 0 15px rgba(168,216,255,.4)
+    border-color:#00e1ff;
+    box-shadow:0 0 15px rgba(0,225,255,.4)
 }
 
 button{
@@ -140,15 +185,15 @@ button{
 .btn-write{
     width:100%;
     padding:15px;
-    background:linear-gradient(135deg,#ff9ec7,#f88db1);
+    background:linear-gradient(135deg,#33bcd4,#0088a0);
     color:#fff;
     text-shadow:1px 1px 2px rgba(0,0,0,.1);
-    box-shadow:0 8px 20px rgba(255,158,199,.4)
+    box-shadow:0 8px 20px rgba(0, 225, 255, 0.4)
 }
 
 .btn-write:hover{
     transform:translateY(-3px);
-    box-shadow:0 12px 30px rgba(255,158,199,.6)
+    box-shadow:0 12px 30px rgba(0, 225, 255, 0.6)
 }
 
 .btn-write:active{
@@ -172,25 +217,59 @@ button{
 }
 
 .output::-webkit-scrollbar-track{
-    background:#f0e6ff
+    background:#e6f1ff
 }
 
 .output::-webkit-scrollbar-thumb{
-    background:linear-gradient(135deg,#ff9ec7,#a8d8ff);
+    background:linear-gradient(135deg,#33bcd4,#0088a0);
     border-radius:10px
 }
 
 .output::-webkit-scrollbar-thumb:hover{
-    background:linear-gradient(135deg,#ff85b8,#9bc4ff)
+    background:linear-gradient(135deg,#00e1ff,#0088a0)
+}
+
+/* FLOATING TOGGLE BUTTON */
+.floating-btn{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#33bcd4,#0088a0);
+    border: none;
+    color:#fff;
+    cursor:pointer;
+    font-size:28px;
+    box-shadow:0 4px 15px rgba(0, 225, 255, 0.4);
+    transition:all .3s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:5
+}
+
+.floating-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 6px 25px rgba(0, 225, 255, 0.6)
+}
+
+.floating-btn:active{
+    transform:scale(0.95)
+}
+
+.floating-btn.hidden{
+    display:none
 }
 
 .jurnal-card{
-    background:linear-gradient(135deg,#fff5f8,#f0f5ff);
+    background:linear-gradient(135deg,#ffffff,#c0f0f7);
     border-radius:18px;
     padding:18px;
     cursor:pointer;
     transition:all .3s ease;
-    border:2px solid rgba(255,158,199,.3);
+    border:2px solid #00e1ff;
     animation:cardAppear .4s ease
 }
 
@@ -207,8 +286,8 @@ button{
 
 .jurnal-card:hover{
     transform:translateY(-5px);
-    box-shadow:0 15px 35px rgba(255,158,199,.25);
-    border-color:rgba(255,158,199,.5)
+    box-shadow:0 15px 35px rgba(0, 225, 255, 0.25);
+    border-color:#00e1ff
 }
 
 .jurnal-header{
@@ -220,9 +299,9 @@ button{
 
 .jurnal-tanggal{
     font-size:.85rem;
-    color:#ff9ec7;
+    color:#ffffff;
     font-weight:700;
-    background:#ffe6f0;
+    background:linear-gradient(135deg,#33bcd4,#0088a0);
     padding:6px 12px;
     border-radius:12px;
     letter-spacing:.3px
@@ -235,12 +314,12 @@ button{
     border-radius:10px;
     font-size:.75rem;
     transition:all .2s ease;
-    box-shadow:0 4px 10px rgba(255,71,87,.3)
+    box-shadow:0 6px 15px rgba(255,71,87,.3)
 }
 
 .btn-delete-jurnal:hover{
     transform:translateY(-2px);
-    box-shadow:0 6px 15px rgba(255,71,87,.5)
+    box-shadow:0 8px 20px rgba(168,216,255,.5)
 }
 
 .jurnal-preview{
@@ -248,7 +327,7 @@ button{
     font-size:.9rem;
     line-height:1.5;
     display:-webkit-box;
-    -webkit-line-clamp:3;
+    line-clamp:3;
     -webkit-box-orient:vertical;
     overflow:hidden;
     margin-bottom:10px;
@@ -257,7 +336,7 @@ button{
 
 .jurnal-read-more{
     font-size:.85rem;
-    color:#a8d8ff;
+    color:#0088a0;
     font-weight:600;
     cursor:pointer
 }
@@ -320,18 +399,18 @@ button{
 }
 
 .modal-box::-webkit-scrollbar-thumb{
-    background:linear-gradient(135deg,#ff9ec7,#a8d8ff);
+    background:linear-gradient(135deg,#33bcd4,#0088a0);
     border-radius:10px
 }
 
 .modal-header{
     margin-bottom:20px;
     padding-bottom:15px;
-    border-bottom:2px solid #f0e6ff
+    border-bottom:2px solid #ebe6ff
 }
 
 .modal-header h2{
-    color:#5a4d8e;
+    color:#0088a0;
     font-size:1.8rem;
     margin-bottom:8px
 }
@@ -356,19 +435,19 @@ button{
 }
 
 .btn-close-modal{
-    background:linear-gradient(135deg,#a8d8ff,#b5ccff);
+    background:linear-gradient(135deg,#33bcd4,#0088a0);
     color:#fff;
     padding:12px 24px;
     border-radius:12px;
     cursor:pointer;
     font-weight:600;
     transition:all .3s ease;
-    box-shadow:0 6px 15px rgba(168,216,255,.3)
+    box-shadow:0 6px 15px rgba(0, 225, 255, 0.3)
 }
 
 .btn-close-modal:hover{
     transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(168,216,255,.5)
+    box-shadow:0 8px 20px rgba(0, 225, 255, 0.5)
 }
 
 .btn-delete-modal{
@@ -387,7 +466,7 @@ button{
     box-shadow:0 8px 20px rgba(255,71,87,.5)
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE - MOBILE */
 @media(max-width:800px){
     .main{
         grid-template-columns:1fr
@@ -408,7 +487,40 @@ button{
     body::before,body::after{
         font-size:2rem
     }
+    
+    /* Portrait: sembunyikan input card, tampilkan floating button */
+    #inputCard{
+        display:none
+    }
+
+    #inputCard.show{
+        display:block !important
+    }
+
+    .floating-btn{
+        display:flex
+    }
+    
+    .floating-btn.hidden{
+        display:none !important
+    }
 }
+
+/* RESPONSIVE - DESKTOP */
+@media(min-width:801px){
+    #inputCard{
+        display:block
+    }
+
+    .floating-btn{
+        display:none
+    }
+
+    .btn-close-card{
+        display:none
+    }
+}
+
 </style>
 </head>
 
@@ -418,7 +530,8 @@ button{
     
     <div class="main">
         <!-- INPUT CARD -->
-        <div class="card">
+        <div class="card input-card-wrapper" id="inputCard">
+            <button class="btn-close-card" onclick="toggleInputCard()">✕</button>
             <label>Tuliskan Jurnal Hari Ini</label>
             <textarea id="jurnalText" placeholder="Bagaimana hari Anda? Tulis cerita, perasaan, atau pengalaman Anda di sini..."></textarea>
             
@@ -434,6 +547,9 @@ button{
         </div>
     </div>
 </div>
+
+<!-- FLOATING TOGGLE BUTTON -->
+<button class="floating-btn" id="floatingBtn" onclick="toggleInputCard()">+</button>
 
 <!-- MODAL DETAIL -->
 <div class="modal" id="modal">
@@ -576,6 +692,21 @@ document.getElementById('jurnalDate').valueAsDate=new Date()
 document.getElementById('modal').addEventListener('click',(e)=>{
     if(e.target.id==='modal') tutupModal()
 })
+
+function toggleInputCard(){
+    const inputCard = document.getElementById('inputCard');
+    const floatingBtn = document.getElementById('floatingBtn');
+
+    inputCard.classList.toggle('show');
+
+    if(inputCard.classList.contains('show')){
+        floatingBtn.classList.add('hidden');
+        const firstInput = inputCard.querySelector('input');
+        if(firstInput) firstInput.focus();
+    }else{
+        floatingBtn.classList.remove('hidden');
+    }
+}
 
 load()
 render()

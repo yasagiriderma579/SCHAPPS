@@ -10,10 +10,38 @@
 
 body{
     font-family:Segoe UI,Tahoma,Verdana,sans-serif;
-    background:linear-gradient(135deg,#667eea,#764ba2);
+    background:linear-gradient(135deg,#ffd0b8,#ff4d00);
     min-height:100vh;
     padding:30px 20px;
-    overflow-x:hidden
+    overflow-x:hidden;
+    position:relative
+}
+
+body::before{
+    content:'📋';
+    position:fixed;
+    top:10%;
+    left:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 6s ease-in-out infinite;
+    z-index:-1
+}
+
+body::after{
+    content:'🚀';
+    position:fixed;
+    bottom:10%;
+    right:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 8s ease-in-out infinite;
+    z-index:-1
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0px)}
+    50%{transform:translateY(-20px)}
 }
 
 .container{max-width:1200px;margin:auto}
@@ -47,7 +75,7 @@ h1{
     align-items:center;
     margin-bottom:20px;
     padding-bottom:15px;
-    border-bottom:3px solid #667eea
+    border-bottom:3px solid #ff4d00
 }
 
 .hari-nama{
@@ -60,7 +88,7 @@ h1{
     width:36px;
     height:36px;
     border-radius:50%;
-    background:linear-gradient(135deg,#4CAF50,#45a049);
+    background:linear-gradient(135deg,#ffb366,#ff4d00);
     color:#fff;
     border:none;
     cursor:pointer;
@@ -70,12 +98,12 @@ h1{
     align-items:center;
     justify-content:center;
     transition:all .3s ease;
-    box-shadow:0 3px 10px rgba(76,175,80,.3)
+    box-shadow:0 3px 10px rgba(255, 77, 0, 0.3)
 }
 
 .btn-add-jadwal:hover{
     transform:scale(1.15);
-    box-shadow:0 5px 15px rgba(76,175,80,.5)
+    background:linear-gradient(135deg,#ff7733,#e63300);
 }
 
 .btn-add-jadwal:active{
@@ -101,12 +129,12 @@ h1{
 }
 
 .jadwal-list::-webkit-scrollbar-thumb{
-    background:#667eea;
+    background:#bb8d62;
     border-radius:10px
 }
 
 .jadwal-list::-webkit-scrollbar-thumb:hover{
-    background:#764ba2
+    background:#a24f4b
 }
 
 .jadwal-row{
@@ -117,13 +145,13 @@ h1{
     padding:10px;
     background:#f9f9f9;
     border-radius:8px;
-    border-left:4px solid #667eea;
+    border-left:4px solid #ff4d00;
     transition:all .2s ease
 }
 
 .jadwal-row:hover{
     background:#f0f4ff;
-    box-shadow:0 2px 8px rgba(102,126,234,.2)
+    box-shadow:0 2px 8px rgba(255, 77, 0, 0.2)
 }
 
 .jadwal-mapel{
@@ -137,7 +165,7 @@ h1{
 
 .jadwal-waktu{
     font-size:.85rem;
-    color:#667eea;
+    color:#ff4d00;
     font-weight:600;
     text-align:center
 }
@@ -146,7 +174,7 @@ h1{
     width:28px;
     height:28px;
     border-radius:6px;
-    background:linear-gradient(135deg,#f44336,#da190b);
+    background:linear-gradient(135deg,#f8827a,#da190b);
     color:#fff;
     border:none;
     cursor:pointer;
@@ -230,8 +258,8 @@ h1{
 
 .form-group input:focus{
     outline:none;
-    border-color:#667eea;
-    box-shadow:0 0 8px rgba(102,126,234,.4)
+    border-color:#ff4d00;
+    box-shadow:0 0 8px rgba(255, 77, 0, 0.4)
 }
 
 .modal-buttons{
@@ -242,7 +270,7 @@ h1{
 }
 
 .btn-submit{
-    background:linear-gradient(135deg,#4CAF50,#45a049);
+    background:linear-gradient(135deg,#ffb366,#ff4d00);
     color:#fff;
     padding:12px;
     border:none;
@@ -254,11 +282,11 @@ h1{
 
 .btn-submit:hover{
     transform:translateY(-2px);
-    box-shadow:0 5px 15px rgba(76,175,80,.3)
+    box-shadow:0 5px 15px rgba(255, 77, 0, 0.3)
 }
 
 .btn-cancel{
-    background:#f44336;
+    background:linear-gradient(135deg,#f8827a,#da190b);
     color:#fff;
     padding:12px;
     border:none;
