@@ -8,32 +8,34 @@
         *{box-sizing:border-box;margin:0;padding:0}
 
         body{
-            font-family:Segoe UI,Tahoma,Verdana,sans-serif;
-            background:linear-gradient(135deg,#66ff99,#11ff00);
+            font-family: Segoe UI, Tahoma, Verdana, sans-serif;
+            background:
+                linear-gradient(135deg, #66ff99, #11ff00);
             min-height:100vh;
             padding:30px 20px;
             overflow-x:hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
         }
 
         .container{max-width:1200px;margin:auto;text-align:center}
 
         h1{
             text-align:center;
-            color:#fff;
-            margin-bottom:40px;
-            font-size:2.5rem;
-            text-shadow:2px 2px 4px rgba(0,0,0,.3)
+            color:#223d1e;
+            margin-bottom:15px;
+            font-size:2.6rem;
+            font-weight:800;
+            letter-spacing:1px;
         }
 
-        p {
-            color: #fff;
-            margin-bottom: 40px;
-            font-weight: bold;
-            font-size:1.1rem;
+        .container > p{
+            color:#1f532a;
+            margin-bottom:45px;
+            font-weight:500;
+            font-size:1.05rem;
         }
 
         .cards-container {
@@ -43,43 +45,61 @@
             justify-content: center;
         }
 
-        .card {
-            background:#fff;
-            border-radius:15px;
-            box-shadow:0 10px 30px rgba(0,0,0,.3);
-            width: 250px;
-            padding: 25px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: inherit;
+        .card{
+            border-radius:18px;
+            width:250px;
+            padding:26px 24px;
+            text-align:center;
+            text-decoration:none;
+            border:1px solid rgba(255,255,255,0.18);
+            backdrop-filter: blur(14px);
+            background: rgba(255,255,255,0.08);
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.35),
+                inset 0 0 0 rgba(255,255,255,.2);
+            transition: 
+                transform .3s ease,
+                box-shadow .3s ease,
+                filter .3s ease;
         }
 
-        .pink-card {
-            background:#ff8080;
-        }
-        
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .card h2 {
-            margin: 0 0 10px 0;
-            color: #333;
-            font-size:1.2rem;
-        }
-
-        .card p {
+        .card p, .card h2{
             margin: 0;
-            color: #666;
             font-size:.9rem;
+            opacity: 0.95;
+            color: black;
         }
 
-        .pink-card p {
-            color: #ffffff;
+        .card:nth-child(1){
+            background: linear-gradient(135deg, #ffffff, #11ff00);
+        }
 
+        .card:nth-child(2){
+            background: linear-gradient(135deg, #ffffff, #66ff99);
+        }
+
+        .card:nth-child(3){
+            background: linear-gradient(135deg, #ffffff, #00ff44);
+        }
+
+        .card h2{
+            margin-bottom:10px;
+            font-size:1.25rem;
+            font-weight:800;
+        }
+
+        .card p{
+            font-size:.92rem;
+            opacity:.95;
+            line-height:1.4;
+        }
+
+        .card:hover{
+            transform: translateY(-8px) scale(1.03);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.45),
+                0 0 25px rgba(255,255,255,.25);
+            filter: brightness(1.12);
         }
 
         /* RESPONSIVE */
@@ -98,12 +118,20 @@
 </head>
 <body>
 <div class="container">
-    <h1>Selamat Datang di GAME CENTER</h1>
-    <p>Kumpulan game random dan absurd</p>
+    <h1>Dolanan SKAWAS</h1>
+    <p>Kumpulan game random dan absurd dari anak-anak SKAWAS.</p>
     <div class="cards-container">
         <a href="https://yasagiriderma579.github.io/TangkapAyam/" class="card">
             <h2>Tangkap Ayam</h2>
-            <p>Buat Mas-mas, Mbak-mbak yang lagi gabutz dan pengen nangkep ayam, bisa dicoba.</p>
+            <p>Buat Warga +62 yang lagi gabutz dan pengen nangkep ayam, bisa dicoba.</p>
+        </a>
+        <a href="https://yasagiriderma.itch.io/antaboga" class="card">
+            <h2>Antaboga</h2>
+            <p>Game yang bisa dijelaskan dengan satu kata "absurd".</p>
+        </a>
+        <a href="https://yasagiriderma.itch.io/antaboga" class="card">
+            <h2>Flappy</h2>
+            <p>Plagiat "none perfection" ditambah "sesuatu".</p>
         </a>
     </div>
 </div>
