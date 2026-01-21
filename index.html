@@ -44,7 +44,6 @@
         }
 
         .card {
-            background:#fff;
             border-radius:15px;
             box-shadow:0 10px 30px rgba(0,0,0,.3);
             width: 250px;
@@ -55,14 +54,41 @@
             color: inherit;
         }
 
-        .pink-card {
-            background:#ff8080;
+        /* Card 1 - Jadwal (Blue) */
+        .card:nth-child(1) {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
         }
 
-        .green-card {
-            background:#80ff80;
+        /* Card 2 - Jurnal (Pink) */
+        .card:nth-child(2) {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: #fff;
         }
-        
+
+        /* Card 3 - OSIS (Teal) */
+        .card:nth-child(3) {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: #fff;
+        }
+
+        /* Card 4 - Tugas (Orange) */
+        .card:nth-child(4) {
+            background: linear-gradient(135deg, #ff9a56, #ff6a88);
+            color: #fff;
+        }
+
+        /* Card 5 - Ngerumpi (Magenta) */
+        .card:nth-child(5) {
+            background: linear-gradient(135deg, #ee0979, #ff6a00);
+            color: #fff;
+        }
+
+        /* Card 6 - Dolanan (Green) */
+        .card:nth-child(6) {
+            background: linear-gradient(135deg, #66ea83, #4ba24b);
+            color: #fff;
+        }
 
         .card:hover {
             transform: translateY(-5px);
@@ -71,19 +97,14 @@
 
         .card h2 {
             margin: 0 0 10px 0;
-            color: #333;
             font-size:1.2rem;
+            font-weight: 700;
         }
 
         .card p {
             margin: 0;
-            color: #666;
             font-size:.9rem;
-        }
-
-        .pink-card p {
-            color: #ffffff;
-
+            opacity: 0.95;
         }
 
         /* RESPONSIVE */
@@ -109,7 +130,7 @@
             <h2>Jadwal Sekolah</h2>
             <p>Solusi joss, biar gak harus repot buka PDF.</p>
         </a>
-        <a href="JurnalHarian.html" class="card pink-card">
+        <a href="JurnalHarian.html" class="card">
             <h2>Jurnal Harian</h2>
             <p>Tulis "My kisah" di kehidupan kamu.</p>
         </a>
@@ -121,11 +142,11 @@
             <h2>Tugas Sekolah</h2>
             <p>Biar ga lupa nugas, catet dulu yuk.</p>
         </a>
-        <a href="NgerumpiSkuy.html" class="card pink-card">
+        <a href="NgerumpiSkuy.html" class="card">
             <h2>Ngerumpi Skuy</h2>
             <p>Bahas hal absurd dan random bareng temen.</p>
         </a>
-        <a href="DolananSKAWAS.html" class="card green-card">
+        <a href="DolananSKAWAS.html" class="card">
             <h2>Dolanan SKAWAS</h2>
             <p>Main game seru, buatan anak-anak SKAWAS.</p>
         </a>
@@ -133,4 +154,3 @@
 </div>
 </body>
 </html>
-
