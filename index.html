@@ -5,37 +5,50 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SCHAPPS - Main Page</title>
         <link rel="stylesheet" href="styles.css">
+        <link rel="manifest" href="/manifest.json">
     </head>
     <body>
-    <div class="container">
-        <h1>Selamat Datang di SCHAPPS</h1>
-        <p>Aplikasi untuk sekolah.</p>
-        <div class="cards-container">
-            <a href="JadwalSekolah/JadwalSekolah.html" class="card">
-                <h2>Jadwal Sekolah</h2>
-                <p>Solusi joss, biar gak harus repot buka PDF.</p>
-            </a>
-            <a href="JurnalHarian/JurnalHarian.html" class="card">
-                <h2>Jurnal Harian</h2>
-                <p>Tulis "My kisah" di kehidupan kamu.</p>
-            </a>
-            <a href="KegiatanOSIS/KegiatanOSIS.html" class="card">
-                <h2>Kegiatan OSIS</h2>
-                <p>Aplikasi buat "si paling sibuk dan disiplin".</p>
-            </a>
-            <a href="TugasSekolah/TugasSekolah.html" class="card">
-                <h2>Tugas Sekolah</h2>
-                <p>Biar ga lupa nugas, catet dulu yuk.</p>
-            </a>
-            <a href="NgerumpiSkuy/NgerumpiSkuy.html" class="card">
-                <h2>Ngerumpi Skuy</h2>
-                <p>Bahas hal absurd dan random bareng temen.</p>
-            </a>
-            <a href="DolananSKAWAS/DolananSKAWAS.html" class="card">
-                <h2>Dolanan SKAWAS</h2>
-                <p>Main game seru, buatan anak-anak SKAWAS.</p>
-            </a>
+        <div class="container">
+            <h1>Selamat Datang di SCHAPPS</h1>
+            <p>Aplikasi untuk sekolah.</p>
+            <div class="cards-container">
+                <a href="JadwalSekolah/JadwalSekolah.html" class="card">
+                    <h2>Jadwal Sekolah</h2>
+                    <p>Solusi joss, biar gak harus repot buka PDF.</p>
+                </a>
+                <a href="JurnalHarian/JurnalHarian.html" class="card">
+                    <h2>Jurnal Harian</h2>
+                    <p>Tulis "My kisah" di kehidupan kamu.</p>
+                </a>
+                <a href="KegiatanOSIS/KegiatanOSIS.html" class="card">
+                    <h2>Kegiatan OSIS</h2>
+                    <p>Aplikasi buat "si paling sibuk dan disiplin".</p>
+                </a>
+                <a href="TugasSekolah/TugasSekolah.html" class="card">
+                    <h2>Tugas Sekolah</h2>
+                    <p>Biar ga lupa nugas, catet dulu yuk.</p>
+                </a>
+                <a href="NgerumpiSkuy/NgerumpiSkuy.html" class="card">
+                    <h2>Ngerumpi Skuy</h2>
+                    <p>Bahas hal absurd dan random bareng temen.</p>
+                </a>
+                <a href="DolananSKAWAS/DolananSKAWAS.html" class="card">
+                    <h2>Dolanan SKAWAS</h2>
+                    <p>Main game seru, buatan anak-anak SKAWAS.</p>
+                </a>
+            </div>
         </div>
-    </div>
+
+        <script>
+            // Registrasi Service Worker
+            if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker terdaftar!', reg))
+                .catch(err => console.log('Registrasi gagal:', err));
+            });
+            }
+        </script>
+
     </body>
 </html>
