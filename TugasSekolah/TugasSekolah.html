@@ -1,643 +1,72 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pengelola Tugas Sekolah</title>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-    font-family:Segoe UI,Tahoma,Verdana,sans-serif;
-    background:linear-gradient(135deg,#faf3be,#fbe44c,#fbff00);
-    min-height:100vh;
-    padding:30px;
-    overflow-x:hidden;
-    position:relative
-}
-
-body::before{
-    content:'💪';
-    position:fixed;
-    top:10%;
-    left:5%;
-    font-size:3rem;
-    opacity:.3;
-    animation:float 6s ease-in-out infinite;
-    z-index:-1
-}
-
-body::after{
-    content:'🧠';
-    position:fixed;
-    bottom:10%;
-    right:5%;
-    font-size:3rem;
-    opacity:.3;
-    animation:float 8s ease-in-out infinite;
-    z-index:-1
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0px)}
-    50%{transform:translateY(-20px)}
-}
-
-.container{max-width:1000px;margin:auto}
-
-h1{
-    text-align:center;
-    color:#fff;
-    margin-bottom:40px;
-    font-size:2.8rem;
-    text-shadow:2px 2px 8px rgba(0,0,0,.2);
-    font-weight:800;
-    letter-spacing:2px
-}
-
-/* LAYOUT UTAMA */
-.main{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:25px;
-    align-items:flex-start;
-}
-
-/* CARD UMUM */
-.card{
-    background:#fff;
-    border-radius:15px;
-    padding:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
-    width:100%;
-    overflow: hidden;
-}
-
-/* FORM */
-label{font-weight:600;margin-bottom:6px;display:block;color:#d4a800}
-input,select{
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:2px solid #ffe680;
-    margin-bottom:15px;
-    max-width:100%;
-    box-sizing:border-box;
-    font-family:Segoe UI,Tahoma,Verdana,sans-serif;
-}
-
-input[type=date]::-webkit-calendar-picker-indicator{
-    cursor:pointer
-}
-
-input:focus,select:focus{
-    outline:none;
-    border-color:#fbff00;
-    box-shadow:0 0 12px rgba(251,255,0,.35)
-}
-
-button{
-    padding:12px 20px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:600;
-    transition:all .3s ease;
-    font-size:.95rem
-}
-
-.btn-group{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-top:15px
-}
-
-.btn-add{
-    background:linear-gradient(135deg,#f6f8a3,#ffdd33);
-    color:#000;
-    grid-column:1
-}
-.btn-add:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(251,255,0,.35)
-}
-.btn-add:active{
-    transform:translateY(0)
-}
-
-.btn-clear{
-    background:linear-gradient(135deg,#f07e76,#da2c1f);
-    color:#fff;
-    grid-column:2
-}
-.btn-clear:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(244,67,54,.35)
-}
-.btn-clear:active{
-    transform:translateY(0)
-}
-
-/* FILTER SECTION */
-.filter-section{
-    margin-bottom:20px;
-    padding-bottom:15px;
-    border-bottom:2px solid #f0f0f0
-}
-
-.filter-section label{
-    font-size:.9rem;
-    color:#d4a800
-}
-
-.filter-section select{
-    margin-bottom:0
-}
-
-/* OUTPUT */
-.output{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-    width:100%;
-    max-height:75vh;
-    overflow-y:auto;
-    overflow-x: hidden;
-}
-
-.thumb{
-    background:linear-gradient(135deg,#fff7db,#fff6a7);
-    border:2px solid #ffdd00;
-    border-radius:15px;
-    cursor:pointer;
-    transition:all .3s ease;
-    overflow:hidden;
-    position:relative;
-    padding:15px
-}
-.thumb:hover{
-    transform:translateY(-5px);
-    box-shadow:0 15px 35px rgba(251,255,0,.25)
-}
-
-.thumb h3{font-size:1.05rem;margin-bottom:6px}
-
-.task-meta{
-    display:flex;
-    gap:10px;
-    margin-bottom:8px;
-    flex-wrap:wrap;
-}
-
-.task-mapel{
-    font-size:.75rem;
-    background:linear-gradient(135deg,#ffdd00,#ffee66);
-    color:#000;
-    padding:6px 12px;
-    border-radius:12px;
-    font-weight:600
-}
-
-.task-deadline{
-    font-size:.75rem;
-    background:#ffa704;
-    color:#fff6db;
-    padding:6px 12px;
-    border-radius:12px;
-    font-weight:600
-}
-
-.task-deadline.urgent{
-    background:#2c2c2c;
-    color:#fff;
-    font-weight:700
-}
-
-.task-deadline.warning{
-    background:#d32f2f;
-    color:#fff;
-    font-weight:700
-}
-
-.btn-delete-task{
-    position:absolute;
-    top:15px;
-    right:15px;
-    background:#f44336;
-    color:#fff;
-    border:none;
-    padding:4px 8px;
-    border-radius:4px;
-    cursor:pointer;
-    font-size:.75rem;
-    transition:all .2s ease
-}
-
-.btn-delete-task:hover{
-    background:#da190b;
-    transform:scale(1.05)
-}
-
-/* MODAL */
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.6);
-    justify-content:center;
-    align-items:center;
-    z-index:10;
-}
-.modal-box{
-    background:#fff;
-    padding:25px;
-    border-radius:12px;
-    width:90%;
-    max-width:500px
-}
-.modal-box h2{margin-bottom:10px}
-.modal-box .task-meta{
-    margin-bottom:15px
-}
-.modal-box p{margin:15px 0;color:#555;line-height:1.6}
-
-.btn-delete{
-    background:linear-gradient(135deg,#f07e76,#da2c1f);
-    color:#fff;
-    margin-top:10px;
-    width:100%
-}
-.btn-close-modal{
-    background:linear-gradient(135deg,#f3f596,#fadc49);
-    color:#000;
-    margin-top:10px;
-    width:100%
-}
-
-/* FLOATING TOGGLE BUTTON */
-.floating-btn{
-    position:fixed;
-    bottom:30px;
-    right:30px;
-    width:60px;
-    height:60px;
-    border-radius:50%;
-    background:linear-gradient(135deg, #4CAF50, #45a049);
-    color:#fff;
-    border:none;
-    cursor:pointer;
-    font-size:28px;
-    box-shadow:0 4px 15px rgba(76, 175, 80, 0.4);
-    transition:all .3s ease;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:5
-}
-
-.floating-btn:hover{
-    transform:scale(1.1);
-    box-shadow:0 6px 25px rgba(76, 175, 80, 0.6)
-}
-
-.floating-btn:active{
-    transform:scale(0.95)
-}
-
-.floating-btn.hidden{
-    display:none
-}
-
-/* CLOSE BUTTON IN CARD */
-.btn-close-card{
-    position:absolute;
-    top:15px;
-    right:15px;
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    background:linear-gradient(135deg, #f44336, #da190b);
-    color:#fff;
-    border:none;
-    cursor:pointer;
-    font-size:24px;
-    font-weight:300;
-    line-height:1;
-    box-shadow:0 4px 12px rgba(244, 67, 54, 0.35);
-    transition:all .3s ease;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0;
-    min-width:40px;
-    min-height:40px
-}
-
-.btn-close-card:hover{
-    background:linear-gradient(135deg, #da190b, #c41107);
-    transform:scale(1.15) rotate(90deg);
-    box-shadow:0 6px 18px rgba(244, 67, 54, 0.5)
-}
-
-.btn-close-card:active{
-    transform:scale(1.05) rotate(90deg)
-}
-
-.input-card-wrapper{
-    position:relative;
-    padding-top:50px
-}
-
-.empty-state{
-    text-align:center;
-    color:#999;
-    padding:40px 20px;
-}
-
-/* RESPONSIVE - MOBILE */
-@media(max-width:800px){
-    .main{
-        grid-template-columns:1fr
-    }
-    
-    .floating-btn{
-        bottom:20px;
-        right:20px;
-        width:55px;
-        height:55px;
-        font-size:24px
-    }
-    
-    .task-meta{
-        flex-direction:column;
-        gap:5px
-    }
-    
-    #inputCard{
-        display:none
-    }
-
-    #inputCard.show{
-        display:block !important
-    }
-
-    .floating-btn{
-        display:flex
-    }
-    
-    .floating-btn.hidden{
-        display:none !important
-    }
-}
-
-/* RESPONSIVE - DESKTOP */
-@media(min-width:801px){
-    #inputCard{
-        display:block
-    }
-
-    .floating-btn{
-        display:none
-    }
-
-    .btn-close-card{
-        display:none
-    }
-}
-</style>
-</head>
-
-<body>
-<div class="container">
-<h1>📝 Pengelola Tugas Sekolah</h1>
-
-<div class="main">
-
-<!-- INPUT CARD -->
-<div class="card input-card-wrapper" id="inputCard">
-<button class="btn-close-card" onclick="toggleInputCard()">✕</button>
-
-<label>Nama Tugas</label>
-<input id="namaTugas" placeholder="Contoh: Mengerjakan soal matematika halaman 50">
-
-<label>Mata Pelajaran</label>
-<input id="mapel" placeholder="Contoh: Matematika, IPA, Bahasa Inggris">
-
-<label>Deadline</label>
-<input type="date" id="deadline">
-
-<div class="btn-group">
-    <button class="btn-add" onclick="addTugas()">✓ Tambah Tugas</button>
-    <button class="btn-clear" onclick="clearForm()">✕ Clear Form</button>
-</div>
-</div>
-
-<!-- OUTPUT CARD -->
-<div class="card" style="display:flex;flex-direction:column">
-    <div class="filter-section">
-        <label for="filterMapel">Filter Mata Pelajaran:</label>
-        <select id="filterMapel" onchange="renderTugas()">
-            <option value="">-- Semua Mapel --</option>
-        </select>
-    </div>
-    
-    <div class="output" id="output"></div>
-</div>
-
-</div>
-</div>
-
-<!-- FLOATING TOGGLE BUTTON -->
-<button class="floating-btn" id="floatingBtn" onclick="toggleInputCard()">+</button>
-
-<!-- MODAL DETAIL -->
-<div class="modal" id="modal">
-<div class="modal-box">
-<h2 id="mNamaTugas"></h2>
-
-<div class="task-meta">
-    <span class="task-mapel" id="mMapel"></span>
-    <span class="task-deadline" id="mDeadline"></span>
-</div>
-
-<p id="mInfo"></p>
-
-<button class="btn-delete" onclick="hapusTugas()">🗑️ Hapus Tugas</button>
-<button class="btn-close-modal" onclick="closeModal()">Tutup</button>
-</div>
-</div>
-
-<script>
-const KEY="tugas_sekolah"
-let data=[]
-let activeId=null
-
-function esc(t){
-    const d=document.createElement("div")
-    d.textContent=t
-    return d.innerHTML
-}
-
-function save(){
-    localStorage.setItem(KEY,JSON.stringify(data))
-}
-
-function load(){
-    data=JSON.parse(localStorage.getItem(KEY))||[]
-}
-
-function addTugas(){
-    const nama=document.getElementById('namaTugas').value.trim()
-    const mapel=document.getElementById('mapel').value
-    const deadline=document.getElementById('deadline').value
-
-    if(!nama||!mapel||!deadline)
-        return alert("Lengkapi semua field!")
-
-    data.push({
-        id:Date.now(),
-        nama:nama,
-        mapel:mapel,
-        deadline:deadline
-    })
-    save()
-    renderTugas()
-    updateFilterOptions()
-    clearForm()
-    alert("✅ Tugas berhasil ditambahkan!")
-}
-
-function clearForm(){
-    document.getElementById('namaTugas').value=""
-    document.getElementById('mapel').value=""
-    document.getElementById('deadline').value=""
-}
-
-function sortByDeadline(tasks){
-    return tasks.sort((a,b)=>{
-        return new Date(a.deadline)-new Date(b.deadline)
-    })
-}
-
-function isUrgent(deadline){
-    const today=new Date()
-    today.setHours(0,0,0,0)
-    const deadlineDate=new Date(deadline)
-    deadlineDate.setHours(0,0,0,0)
-    const daysLeft=Math.ceil((deadlineDate-today)/(1000*60*60*24))
-    return daysLeft<=1
-}
-
-function getDaysLeft(deadline){
-    const today=new Date()
-    today.setHours(0,0,0,0)
-    const deadlineDate=new Date(deadline)
-    deadlineDate.setHours(0,0,0,0)
-    return Math.ceil((deadlineDate-today)/(1000*60*60*24))
-}
-
-function renderTugas(){
-    const filterValue=document.getElementById('filterMapel').value
-    let filtered=filterValue?data.filter(t=>t.mapel===filterValue):data
-    filtered=sortByDeadline(filtered)
-    
-    const output=document.getElementById('output')
-
-    if(filtered.length===0){
-        output.innerHTML='<div class="empty-state">Belum ada tugas. Buat tugas baru untuk memulai!</div>'
-        return
-    }
-
-    output.innerHTML=filtered.map(t=>{
-        const daysLeft=getDaysLeft(t.deadline)
-        let urgencyClass=''
-        const deadlineText=daysLeft===0?"Hari ini":daysLeft===1?"Besok":daysLeft>0?daysLeft+" hari lagi":"Lewat"
-        
-        if(daysLeft<=1) urgencyClass='urgent'
-        else if(daysLeft<=3) urgencyClass='warning'
-        
-        return `
-        <div class="card thumb" onclick="openDetail(${t.id})">
-            <button class="btn-delete-task" onclick="event.stopPropagation();hapusTugasQuick(${t.id})">Hapus</button>
-            <h3>${esc(t.nama)}</h3>
-            <div class="task-meta">
-                <span class="task-mapel">${esc(t.mapel)}</span>
-                <span class="task-deadline ${urgencyClass}">📅 ${new Date(t.deadline).toLocaleDateString("id-ID")} (${deadlineText})</span>
-            </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pengelola Tugas Sekolah</title>
+        <link rel="stylesheet" href="TugasSekolah.css">
+    </head>
+
+    <body>
+        <div class="container">
+        <h1>📝 Pengelola Tugas Sekolah</h1>
+
+        <div class="main">
+
+        <!-- INPUT CARD -->
+        <div class="card input-card-wrapper" id="inputCard">
+        <button class="btn-close-card" onclick="toggleInputCard()">✕</button>
+
+        <label>Nama Tugas</label>
+        <input id="namaTugas" placeholder="Contoh: Mengerjakan soal matematika halaman 50">
+
+        <label>Mata Pelajaran</label>
+        <input id="mapel" placeholder="Contoh: Matematika, IPA, Bahasa Inggris">
+
+        <label>Deadline</label>
+        <input type="date" id="deadline">
+
+        <div class="btn-group">
+            <button class="btn-add" onclick="addTugas()">✓ Tambah Tugas</button>
+            <button class="btn-clear" onclick="clearForm()">✕ Clear Form</button>
         </div>
-        `
-    }).join("")
-}
+        </div>
 
-function updateFilterOptions(){
-    const mapels=[...new Set(data.map(t=>t.mapel))].sort()
-    const filterSelect=document.getElementById('filterMapel')
-    const currentValue=filterSelect.value
-    
-    const options='<option value="">-- Semua Mapel --</option>'+
-        mapels.map(m=>`<option value="${m}">${m}</option>`).join("")
-    
-    filterSelect.innerHTML=options
-    filterSelect.value=currentValue
-}
+        <!-- OUTPUT CARD -->
+        <div class="card" style="display:flex;flex-direction:column">
+            <div class="filter-section">
+                <label for="filterMapel">Filter Mata Pelajaran:</label>
+                <select id="filterMapel" onchange="renderTugas()">
+                    <option value="">-- Semua Mapel --</option>
+                </select>
+            </div>
+            
+            <div class="output" id="output"></div>
+        </div>
 
-function openDetail(id){
-    const t=data.find(x=>x.id===id)
-    activeId=id
-    const daysLeft=getDaysLeft(t.deadline)
-    const deadlineText=daysLeft===0?"Hari ini":daysLeft===1?"Besok":daysLeft>0?daysLeft+" hari lagi":"Lewat"
-    
-    document.getElementById('mNamaTugas').textContent=t.nama
-    document.getElementById('mMapel').textContent=t.mapel
-    document.getElementById('mDeadline').textContent="📅 "+new Date(t.deadline).toLocaleDateString("id-ID",{weekday:"long",year:"numeric",month:"long",day:"numeric"})+" ("+deadlineText+")"
-    document.getElementById('mInfo').textContent=`Deadline: ${deadlineText}`
-    document.getElementById('modal').style.display="flex"
-}
+        </div>
+        </div>
 
-function closeModal(){
-    document.getElementById('modal').style.display="none"
-}
+        <!-- FLOATING TOGGLE BUTTON -->
+        <button class="floating-btn" id="floatingBtn" onclick="toggleInputCard()">+</button>
 
-function hapusTugas(){
-    if(confirm("Yakin ingin menghapus tugas ini?")){
-        data=data.filter(d=>d.id!==activeId)
-        save()
-        closeModal()
-        renderTugas()
-        updateFilterOptions()
-        alert("✅ Tugas berhasil dihapus!")
-    }
-}
+        <!-- MODAL DETAIL -->
+        <div class="modal" id="modal">
+        <div class="modal-box">
+        <h2 id="mNamaTugas"></h2>
 
-function hapusTugasQuick(id){
-    if(confirm("Yakin ingin menghapus tugas ini?")){
-        data=data.filter(d=>d.id!==id)
-        save()
-        renderTugas()
-        updateFilterOptions()
-    }
-}
+        <div class="task-meta">
+            <span class="task-mapel" id="mMapel"></span>
+            <span class="task-deadline" id="mDeadline"></span>
+        </div>
 
-function toggleInputCard(){
-    const inputCard = document.getElementById('inputCard');
-    const floatingBtn = document.getElementById('floatingBtn');
+        <p id="mInfo"></p>
 
-    inputCard.classList.toggle('show');
+        <button class="btn-delete" onclick="hapusTugas()">🗑️ Hapus Tugas</button>
+        <button class="btn-close-modal" onclick="closeModal()">Tutup</button>
+        </div>
+        </div>
 
-    if(inputCard.classList.contains('show')){
-        floatingBtn.classList.add('hidden');
-        const firstInput = inputCard.querySelector('input');
-        if(firstInput) firstInput.focus();
-    }else{
-        floatingBtn.classList.remove('hidden');
-    }
-}
-
-load()
-renderTugas()
-updateFilterOptions()
-</script>
-</body>
+        <script src="TugasSekolah.js"></script>
+    </body>
 </html>

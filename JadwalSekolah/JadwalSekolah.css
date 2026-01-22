@@ -1,0 +1,320 @@
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Segoe UI,Tahoma,Verdana,sans-serif;
+    background:linear-gradient(135deg,#ffd0b8,#ff4d00);
+    min-height:100vh;
+    padding:30px 20px;
+    overflow-x:hidden;
+    position:relative
+}
+
+body::before{
+    content:'📋';
+    position:fixed;
+    top:10%;
+    left:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 6s ease-in-out infinite;
+    z-index:-1
+}
+
+body::after{
+    content:'🚀';
+    position:fixed;
+    bottom:10%;
+    right:5%;
+    font-size:3rem;
+    opacity:.3;
+    animation:float 8s ease-in-out infinite;
+    z-index:-1
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0px)}
+    50%{transform:translateY(-20px)}
+}
+
+.container{max-width:1200px;margin:auto}
+
+h1{
+    text-align:center;
+    color:#fff;
+    margin-bottom:40px;
+    font-size:2.5rem;
+    text-shadow:2px 2px 4px rgba(0,0,0,.3)
+}
+
+.jadwal-container{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    margin-bottom:30px
+}
+
+.hari-card{
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    overflow:hidden
+}
+
+.hari-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    padding-bottom:15px;
+    border-bottom:3px solid #ff4d00
+}
+
+.hari-nama{
+    font-size:1.5rem;
+    font-weight:700;
+    color:#333
+}
+
+.btn-add-jadwal{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#ffb366,#ff4d00);
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .3s ease;
+    box-shadow:0 3px 10px rgba(255, 77, 0, 0.3)
+}
+
+.btn-add-jadwal:hover{
+    transform:scale(1.15);
+    background:linear-gradient(135deg,#ff7733,#e63300);
+}
+
+.btn-add-jadwal:active{
+    transform:scale(1)
+}
+
+.jadwal-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-height:400px;
+    overflow-y:auto;
+    padding-right:5px
+}
+
+.jadwal-list::-webkit-scrollbar{
+    width:6px
+}
+
+.jadwal-list::-webkit-scrollbar-track{
+    background:#f1f1f1;
+    border-radius:10px
+}
+
+.jadwal-list::-webkit-scrollbar-thumb{
+    background:#bb8d62;
+    border-radius:10px
+}
+
+.jadwal-list::-webkit-scrollbar-thumb:hover{
+    background:#a24f4b
+}
+
+.jadwal-row{
+    display:grid;
+    grid-template-columns:2fr 1fr auto;
+    gap:8px;
+    align-items:center;
+    padding:10px;
+    background:#f9f9f9;
+    border-radius:8px;
+    border-left:4px solid #ff4d00;
+    transition:all .2s ease
+}
+
+.jadwal-row:hover{
+    background:#f0f4ff;
+    box-shadow:0 2px 8px rgba(255, 77, 0, 0.2)
+}
+
+.jadwal-mapel{
+    font-weight:600;
+    color:#333;
+    font-size:.95rem;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+}
+
+.jadwal-waktu{
+    font-size:.85rem;
+    color:#ff4d00;
+    font-weight:600;
+    text-align:center
+}
+
+.btn-delete-jadwal{
+    width:28px;
+    height:28px;
+    border-radius:6px;
+    background:linear-gradient(135deg,#f8827a,#da190b);
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .2s ease;
+    flex-shrink:0;
+    box-shadow:0 2px 8px rgba(244,67,54,.3);
+    font-weight:bold;
+    padding:0
+}
+
+.btn-delete-jadwal:hover{
+    background:linear-gradient(135deg,#da190b,#b8150a);
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(244,67,54,.5)
+}
+
+.btn-delete-jadwal:active{
+    transform:translateY(0);
+    box-shadow:0 2px 6px rgba(244,67,54,.3)
+}
+
+.empty-state{
+    text-align:center;
+    color:#999;
+    padding:20px;
+    font-size:.9rem
+}
+
+/* MODAL TAMBAH JADWAL */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+    padding:20px
+}
+
+.modal-box{
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    width:90%;
+    max-width:400px;
+    box-shadow:0 10px 40px rgba(0,0,0,.3)
+}
+
+.modal-box h2{
+    margin-bottom:20px;
+    color:#333;
+    text-align:center
+}
+
+.form-group{
+    margin-bottom:15px;
+    display:flex;
+    flex-direction:column
+}
+
+.form-group label{
+    font-weight:600;
+    margin-bottom:6px;
+    color:#333;
+    font-size:.9rem
+}
+
+.form-group input{
+    padding:10px;
+    border:2px solid #ddd;
+    border-radius:8px;
+    font-size:.95rem;
+    font-family:inherit;
+    transition:border-color .3s ease
+}
+
+.form-group input:focus{
+    outline:none;
+    border-color:#ff4d00;
+    box-shadow:0 0 8px rgba(255, 77, 0, 0.4)
+}
+
+.modal-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:20px
+}
+
+.btn-submit{
+    background:linear-gradient(135deg,#ffb366,#ff4d00);
+    color:#fff;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .3s ease
+}
+
+.btn-submit:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(255, 77, 0, 0.3)
+}
+
+.btn-cancel{
+    background:linear-gradient(135deg,#f8827a,#da190b);
+    color:#fff;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .3s ease
+}
+
+.btn-cancel:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(244,67,54,.3)
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .jadwal-container{
+        grid-template-columns:1fr
+    }
+    
+    h1{
+        font-size:1.8rem;
+        margin-bottom:25px
+    }
+    
+    .jadwal-row{
+        grid-template-columns:1.5fr 1fr auto;
+        gap:8px;
+        padding:8px
+    }
+    
+    .jadwal-mapel{
+        font-size:.9rem
+    }
+    
+    .jadwal-waktu{
+        font-size:.8rem
+    }
+}
