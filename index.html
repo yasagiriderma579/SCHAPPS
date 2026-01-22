@@ -1,181 +1,41 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCHAPPS - Main Page</title>
-    <style>
-        *{box-sizing:border-box;margin:0;padding:0}
-
-        body{
-            font-family: Segoe UI, Tahoma, Verdana, sans-serif;
-            background:
-                linear-gradient(135deg, #0f0f1a, #1b1b3a);
-            min-height:100vh;
-            padding:30px 20px;
-            overflow-x:hidden;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-        }
-
-
-        .container{max-width:1200px;margin:auto;text-align:center}
-
-        h1{
-            text-align:center;
-            color:#ffffff;
-            margin-bottom:15px;
-            font-size:2.6rem;
-            font-weight:800;
-            letter-spacing:1px;
-        }
-
-        .container > p{
-            color:#c7c7ff;
-            margin-bottom:45px;
-            font-weight:500;
-            font-size:1.05rem;
-        }
-
-
-        .cards-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .card{
-            border-radius:18px;
-            width:250px;
-            padding:26px 24px;
-            text-align:center;
-            text-decoration:none;
-            border:1px solid rgba(255,255,255,0.18);
-            backdrop-filter: blur(14px);
-            background: rgba(255,255,255,0.08);
-            box-shadow:
-                0 10px 30px rgba(0,0,0,.35),
-                inset 0 0 0 rgba(255,255,255,.2);
-            transition: 
-                transform .3s ease,
-                box-shadow .3s ease,
-                filter .3s ease;
-        }
-
-        .card p, .card h2{
-            margin: 0;
-            font-size:.9rem;
-            opacity: 0.95;
-            color: black;
-        }
-
-
-        /* Jadwal */
-        .card:nth-child(1){
-            background: linear-gradient(135deg, #ffffff, #ff4d00);
-
-        }
-
-        /* Jurnal */
-        .card:nth-child(2){
-            background: linear-gradient(135deg, #ffffff, #00e1ff);
-
-        }
-
-        /* OSIS */
-        .card:nth-child(3){
-            background: linear-gradient(135deg, #ffffff, #2b00ff);
-
-        }
-
-        /* Tugas */
-        .card:nth-child(4){
-            background: linear-gradient(135deg, #ffffff, #fbff00);
-
-        }
-
-        /* Ngerumpi */
-        .card:nth-child(5){
-            background: linear-gradient(135deg, #ffffff, #ff00e6);
-
-        }
-
-        /* Dolanan */
-        .card:nth-child(6){
-            background: linear-gradient(135deg, #ffffff, #11ff00);
-
-        }
-
-
-        .card h2{
-            margin-bottom:10px;
-            font-size:1.25rem;
-            font-weight:800;
-        }
-
-        .card p{
-            font-size:.92rem;
-            opacity:.95;
-            line-height:1.4;
-        }
-
-
-        .card:hover{
-            transform: translateY(-8px) scale(1.03);
-            box-shadow:
-                0 20px 50px rgba(0,0,0,.45),
-                0 0 25px rgba(255,255,255,.25);
-            filter: brightness(1.12);
-        }
-
-
-        /* RESPONSIVE */
-        @media(max-width:768px){
-            h1{
-                font-size:1.8rem;
-                margin-bottom:25px
-            }
-            
-            .card{
-                width:100%;
-                max-width:300px
-            }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Selamat Datang di SCHAPPS</h1>
-    <p>Aplikasi untuk sekolah.</p>
-    <div class="cards-container">
-        <a href="JadwalSekolah/JadwalSekolah.html" class="card">
-            <h2>Jadwal Sekolah</h2>
-            <p>Solusi joss, biar gak harus repot buka PDF.</p>
-        </a>
-        <a href="JurnalHarian/JurnalHarian.html" class="card">
-            <h2>Jurnal Harian</h2>
-            <p>Tulis "My kisah" di kehidupan kamu.</p>
-        </a>
-        <a href="KegiatanOSIS/KegiatanOSIS.html" class="card">
-            <h2>Kegiatan OSIS</h2>
-            <p>Aplikasi buat "si paling sibuk dan disiplin".</p>
-        </a>
-        <a href="TugasSekolah/TugasSekolah.html" class="card">
-            <h2>Tugas Sekolah</h2>
-            <p>Biar ga lupa nugas, catet dulu yuk.</p>
-        </a>
-        <a href="NgerumpiSkuy/NgerumpiSkuy.html" class="card">
-            <h2>Ngerumpi Skuy</h2>
-            <p>Bahas hal absurd dan random bareng temen.</p>
-        </a>
-        <a href="DolananSKAWAS/DolananSKAWAS.html" class="card">
-            <h2>Dolanan SKAWAS</h2>
-            <p>Main game seru, buatan anak-anak SKAWAS.</p>
-        </a>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SCHAPPS - Main Page</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+    <div class="container">
+        <h1>Selamat Datang di SCHAPPS</h1>
+        <p>Aplikasi untuk sekolah.</p>
+        <div class="cards-container">
+            <a href="JadwalSekolah/JadwalSekolah.html" class="card">
+                <h2>Jadwal Sekolah</h2>
+                <p>Solusi joss, biar gak harus repot buka PDF.</p>
+            </a>
+            <a href="JurnalHarian/JurnalHarian.html" class="card">
+                <h2>Jurnal Harian</h2>
+                <p>Tulis "My kisah" di kehidupan kamu.</p>
+            </a>
+            <a href="KegiatanOSIS/KegiatanOSIS.html" class="card">
+                <h2>Kegiatan OSIS</h2>
+                <p>Aplikasi buat "si paling sibuk dan disiplin".</p>
+            </a>
+            <a href="TugasSekolah/TugasSekolah.html" class="card">
+                <h2>Tugas Sekolah</h2>
+                <p>Biar ga lupa nugas, catet dulu yuk.</p>
+            </a>
+            <a href="NgerumpiSkuy/NgerumpiSkuy.html" class="card">
+                <h2>Ngerumpi Skuy</h2>
+                <p>Bahas hal absurd dan random bareng temen.</p>
+            </a>
+            <a href="DolananSKAWAS/DolananSKAWAS.html" class="card">
+                <h2>Dolanan SKAWAS</h2>
+                <p>Main game seru, buatan anak-anak SKAWAS.</p>
+            </a>
+        </div>
     </div>
-</div>
-</body>
+    </body>
 </html>
